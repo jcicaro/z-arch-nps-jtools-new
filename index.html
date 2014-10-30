@@ -19,13 +19,15 @@
 		
 		<!-- Bootstrap -->
 		<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+		
+		<!-- Main Styles -->
+		<link href="styles/main.css" rel="stylesheet">
 	</head>
 
 	<body>
 		<div>
-			<div class="container" ng-app="app">
+			<div class="container content" ng-app="app">
 			<nav-area></nav-area>
-			<!-- <header ng-include="'templates/nav.html'"></header> -->
 			<div ui-view></div>
 			<footer ng-include="'templates/footer.html'"></footer>
 			
@@ -37,9 +39,9 @@
 		<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 		
 		<script src="scripts/app.js"></script>
-		<script src="scripts/controllers.js"></script>
-		<script src="scripts/factories.js"></script>
-		<script src="scripts/directives.js"></script>
+		<script src="scripts/controller.js"></script>
+		<script src="scripts/factory.js"></script>
+		<script src="scripts/directive.js"></script>
 		
 	</body>
 </html>
