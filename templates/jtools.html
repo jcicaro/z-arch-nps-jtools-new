@@ -1,1 +1,125 @@
-This is jtools.html
+<!-- <div class="container"> -->
+	<div class="default">
+
+		<div class="row">
+			<div class="col-xs-12 col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h4 class="panel-title">Input (6 and 7-digit property IDs)</h4></div>
+					
+					<div class="panel-body">
+						
+						<form id="inputForm" action="">
+							<div class="form-group">
+								<textarea name="" id="editorLeft" rows="10"></textarea>
+							</div>
+							<p>Click on the FNC line text to see the results for that line.</p>
+							
+							<div class="btn-group btn-group-justified">
+								<div class="btn-group">
+								<button id="ptRow" type="button" class="btn btn-default">
+											Turn ( to Rows
+								</button>
+								</div>
+								<div class="btn-group">
+								<button id="findAllPar" type="button" class="btn btn-default">
+											Find All ()
+								</button>
+								</div>
+							 	<div class="btn-group dropup">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+									    Add Sample Input <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+										  	
+									  	<li><span id="fncWoBrackets" type="button" class="btn">FNC without Brackets</span></li>
+									    <li><span id="addSimple" type="button" class="btn">Simple FNC</span></li>
+									    <li><span id="addComplex" type="button" class="btn">Complex FNC</span></li>
+									    <li class="divider"></li>
+									    <li><span id="clearText" type="button" class="btn">Clear</span></li>
+									</ul>
+								</div>
+							</div>
+						</form>
+						
+					</div><!--/. panel-body-->
+				</div><!--/. panel panel-default-->
+
+			</div><!--/.col-xs-12 col-md-9 -->
+
+			<div class="col-xs-12 col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h4 class="panel-title">Results</h4></div>
+					<div class="panel-body">
+						<div class="form-group">
+							<textarea name="" id="editorRight" rows="10"></textarea>
+						</div>
+						
+						
+						<button id="copyLine" type="button" class="btn btn-default">
+								Copy Line To Input
+						</button>
+					
+					</div><!--/. panel-body-->
+				</div><!--/. panel panel-default-->
+
+				<div class="panel panel-default">
+					
+					<div class="panel-body">
+					
+					<div class="input-group">
+						<span class="input-group-addon">(</span>
+						<input type="text" id="countOpen" disabled class="form-control">
+						<span class="input-group-addon">)</span>
+						<input type="text" id="countClosed" disabled class="form-control">
+						<span class="input-group-addon">Characters</span>
+						<input type="text" id="count" disabled class="form-control">
+						<span class="input-group-btn">
+							<input type="button" id="findPar" value="Find $x" class="btn btn-primary">
+						</span>
+						<input type="text" id="inpFindPar" placeholder="eg. 10" class="form-control">
+					</div>
+					
+						
+					
+					<textarea id="textResult" rows="5" cols="90" readonly="readonly" class="form-control"> </textarea>
+					
+					</div><!--/. panel-body-->
+				</div><!--/. panel panel-default-->
+			</div><!--/.col-xs-6 col-md-3 -->
+			
+
+		</div><!--/.row -->
+
+	</div><!--/.default -->
+<!-- </div> --><!-- /.container -->
+	
+	
+<script>
+	/*
+	Codemirror Initialisation
+	*/
+	
+	
+	var editorRight = CodeMirror.fromTextArea(document.getElementById("editorRight"), {
+		lineNumbers : true,
+		mode : "text/javascript",
+		lineWrapping : true,
+		indentUnit : 4,
+		theme: 'twilight',
+		matchBrackets : true
+	}); //theme: 'twilight',
+	editorRight.setSize("100%", "100%");
+
+	var editorLeft = CodeMirror.fromTextArea(document.getElementById("editorLeft"), {
+		lineNumbers : true,
+		mode : "text/javascript",
+		lineWrapping : true,
+		indentUnit : 4,
+		theme: 'twilight',
+		matchBrackets : true
+	}); //theme: 'twilight',
+	editorLeft.setSize("100%", "510");
+	editorLeft.on('cursorActivity', function() { //'change'
+		addSampleCode();
+	});
+</script>
