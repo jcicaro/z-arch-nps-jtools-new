@@ -10,7 +10,7 @@
 						
 						<form id="inputForm" action="">
 							<div class="form-group">
-								<textarea name="" id="editorLeft" ng-model="editorL" rows="10"></textarea>
+								<textarea name="" id="editorLeft" rows="10"></textarea>
 							</div>
 							<p>Click on the FNC line text to see the results for that line.</p>
 							
@@ -51,7 +51,7 @@
 					<div class="panel-heading"><h4 class="panel-title">Results</h4></div>
 					<div class="panel-body">
 						<div class="form-group">
-							<textarea name="" id="editorRight" ng-model="editorR" rows="10"></textarea>
+							<textarea name="" id="editorRight" rows="10"></textarea>
 						</div>
 						
 						
@@ -73,15 +73,16 @@
 						<input type="text" id="countClosed" disabled class="form-control">
 						<span class="input-group-addon">Characters</span>
 						<input type="text" id="count" disabled class="form-control">
+						<!--
 						<span class="input-group-btn">
 							<input type="button" id="findPar" value="Find $x" class="btn btn-primary">
 						</span>
 						<input type="text" id="inpFindPar" placeholder="eg. 10" class="form-control">
+						-->
 					</div>
+
 					
-						
-					
-					<textarea id="textResult" rows="5" cols="90" readonly="readonly" class="form-control"> </textarea>
+					<textarea id="textResult" rows="5" cols="90" readonly="readonly" class="form-control">{{results.addedAssignments}}</textarea>
 					
 					</div><!--/. panel-body-->
 				</div><!--/. panel panel-default-->
@@ -92,7 +93,6 @@
 
 	</div><!--/.default -->
 <!-- </div> --><!-- /.container -->
-	
 	
 <script>
 	window.onload = init;

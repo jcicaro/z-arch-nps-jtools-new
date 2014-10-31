@@ -356,34 +356,27 @@ var JTOOLAUTOPROC = (function() {
 			var res = "=== ADD BRACKETS ===\n" + resAddPar + "\n\n=== ADD EXCLAMATION ===\n" + resAddExcl + "\n\n=== ADD ASSIGNMENTS ===\n" + resAddAssign;
 			
 			//count
-			var count = document.getElementById("count");
-			//count.value = resAddAssign.length;
 			resultSet.characters = resAddAssign.length;
-			
+
 			var matchOpen = resAddAssign.match(/\(/g);
-			var countOpen = document.getElementById("countOpen");
-			
 			var matchClosed = resAddAssign.match(/\)/g);
-			var countClosed = document.getElementById("countClosed");
 			
-			if(matchOpen && matchClosed) {
-				//countOpen.value = matchOpen.length;
-				//countClosed.value = matchClosed.length;
-				resultSet.openBrackets = matchOpen.length;
-				resultSet.closedBrackets = matchClosed.length;
+			if(matchOpen) {
+				resultSet.openParenthesis = matchOpen.length;
 			}
 			else {
-				//countOpen.value = 0;
-				//countClosed.value = 0;
 				resultSet.openParenthesis = 0;
+			}
+			
+			if(matchClosed) {
+				resultSet.closedParenthesis = matchClosed.length;
+			}
+			else {
 				resultSet.closedParenthesis = 0;
 			}
 			
 			//Result Text
-			var resText = document.getElementById("textResult");
-			//resText.innerHTML = resAddAssign;
 			resultSet.addedAssignments = resAddAssign;
-			
 			resultSet.combinedResults = res;
 
 			return resultSet;

@@ -1,12 +1,14 @@
 (function() {
 	
 	var app = angular.module('controller', []);
+	
+	
 
 	/*
 	 * Controller
 	 */
 	app.controller('jtoolsCtrl', ['$scope', function($scope) {
-		$scope.results = "";
+		$scope.results = {};
 	
 		var editorRight = CodeMirror.fromTextArea(document.getElementById("editorRight"), {
 			lineNumbers : true,
@@ -28,28 +30,40 @@
 		}); //theme: 'twilight',
 		editorLeft.setSize("100%", "510");
 		editorLeft.on('cursorActivity', function() { //'change'
-			toEditorRight();
+			$scope.results = getProcessedText();
+			toEditorRight($scope.results);
+			toSummary($scope.results);
 		});
 	
 		var textLeft = "";
 		var textRight = "";
 		
-		function toEditorRight() {
-			
+		function getProcessedText() {
 			//editorLeft
 			var cursor = editorLeft.getCursor();
 			textLeft = editorLeft.getLine(cursor.line);
 			
-			//process textLeft
-			$scope.results = JTOOLAUTOPROC.processText(textLeft);
-			
+			return JTOOLAUTOPROC.processText(textLeft);
+		}
+		
+		function toEditorRight(resultSet) {
 			//editorRight
-			textRight = $scope.results.combinedResults;
+			textRight = resultSet.combinedResults;
 			editorRight.setValue(textRight);
 		}
 		
-		function toSummary() {
+		function toSummary(resultSet) {
+			var count = document.getElementById("count");
+			count.value = resultSet.characters;
 			
+			var countOpen = document.getElementById("countOpen");
+			countOpen.value = resultSet.openParenthesis;
+			
+			var countClosed = document.getElementById("countClosed");
+			countClosed.value = resultSet.closedParenthesis;
+			
+			var resText = document.getElementById("textResult");
+			resText.innerHTML = resultSet.addedAssignments;
 		}
 
 	}]);

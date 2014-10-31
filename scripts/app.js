@@ -1,5 +1,6 @@
 (function() {
 	var app = angular.module('app', ['ui.router', 'controller', 'factory', 'directive']);
+
 	
 	/*
 	 * Route
