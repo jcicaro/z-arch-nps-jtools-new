@@ -11,15 +11,13 @@
 			.state('jtools', {
 				url: '/',
 				templateUrl: 'templates/jtools.html',
-				controller: 'jtoolsCtrl',
+				controller: 'jtoolsCtrl'
 			})
 			.state('codeme', {
 				url: '/codeme',
 				templateUrl: 'templates/codeme.html',
-				controller: 'codemeCtrl'
+				/*controller: 'codemeCtrl'*/
 			})
 	}]);
 	
-	
-
 })();

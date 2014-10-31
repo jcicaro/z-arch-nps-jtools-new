@@ -1,5 +1,5 @@
 <!-- <div class="container"> -->
-	<div class="default">
+	<div class="default" ng-controller="jtoolsCtrl as jtc">
 
 		<div class="row">
 			<div class="col-xs-12 col-md-6">
@@ -10,7 +10,7 @@
 						
 						<form id="inputForm" action="">
 							<div class="form-group">
-								<textarea name="" id="editorLeft" rows="10"></textarea>
+								<textarea name="" id="editorLeft" ng-model="editorL" rows="10"></textarea>
 							</div>
 							<p>Click on the FNC line text to see the results for that line.</p>
 							
@@ -51,7 +51,7 @@
 					<div class="panel-heading"><h4 class="panel-title">Results</h4></div>
 					<div class="panel-body">
 						<div class="form-group">
-							<textarea name="" id="editorRight" rows="10"></textarea>
+							<textarea name="" id="editorRight" ng-model="editorR" rows="10"></textarea>
 						</div>
 						
 						
@@ -95,31 +95,33 @@
 	
 	
 <script>
-	/*
-	Codemirror Initialisation
-	*/
-	
-	
-	var editorRight = CodeMirror.fromTextArea(document.getElementById("editorRight"), {
-		lineNumbers : true,
-		mode : "text/javascript",
-		lineWrapping : true,
-		indentUnit : 4,
-		theme: 'twilight',
-		matchBrackets : true
-	}); //theme: 'twilight',
-	editorRight.setSize("100%", "100%");
+	window.onload = init;
+	function init() {
+		/*
+		var fp = document.getElementById("findPar");
+		fp.onclick = findParentheses;
+		
+		var ptrow = document.getElementById("ptRow");
+		ptrow.onclick = parToRow;
+		
+		var cpLine = document.getElementById("copyLine");
+		cpLine.onclick = copyLine;
+		
+		var fncWoBrackets = document.getElementById("fncWoBrackets");
+		fncWoBrackets.onclick = addFNCWoBrackets;
+		
+		var addSimple = document.getElementById("addSimple");
+		addSimple.onclick = addSimpleInput;
+		
+		var addComplex = document.getElementById("addComplex");
+		addComplex.onclick = addComplexInput;
+		
+		var clearText = document.getElementById("clearText");
+		clearText.onclick = clearTextInput;
 
-	var editorLeft = CodeMirror.fromTextArea(document.getElementById("editorLeft"), {
-		lineNumbers : true,
-		mode : "text/javascript",
-		lineWrapping : true,
-		indentUnit : 4,
-		theme: 'twilight',
-		matchBrackets : true
-	}); //theme: 'twilight',
-	editorLeft.setSize("100%", "510");
-	editorLeft.on('cursorActivity', function() { //'change'
-		addSampleCode();
-	});
+		var findAllPar = document.getElementById("findAllPar");
+		findAllPar.onclick = findAllParentheses;
+		*/
+	}
+	
 </script>
