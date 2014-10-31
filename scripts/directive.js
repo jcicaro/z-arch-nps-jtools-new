@@ -5,7 +5,7 @@
 	/*
 	 * Directives
 	 */
-	app.directive('navArea', function(){
+	app.directive('jNav', function(){
 		return {
 			restrict: 'E',
 			templateUrl: 'templates/nav.html'

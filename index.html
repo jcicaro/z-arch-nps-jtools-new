@@ -11,7 +11,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="User">
 
-		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
 		<link rel="shortcut icon" href="/favicon.ico">
@@ -27,33 +27,40 @@
 		<link rel="stylesheet" href="bower_components/codemirror/lib/codemirror.css">
 		<link rel="stylesheet" href="bower_components/codemirror/theme/twilight.css">
 
-		<!-- Codemirror Scripts-->
-		<script src="bower_components/codemirror/lib/codemirror.js"></script>
-		<script src="bower_components/codemirror/mode/javascript/javascript.js"></script>
-		<script src="bower_components/codemirror/addon/edit/matchbrackets.js"></script>
 	</head>
 
 	<body>
 		<div class="container">
 		
 			<div class="content" ng-app="app">
-			<nav-area></nav-area>
+			<j-nav></j-nav>
 			<div ui-view></div>
 			<footer ng-include="'templates/footer.html'"></footer>
-			
 		</div>
 		
+		<!-- Codemirror Scripts-->
+		<script src="bower_components/codemirror/lib/codemirror.js"></script>
+		<script src="bower_components/codemirror/mode/javascript/javascript.js"></script>
+		<script src="bower_components/codemirror/addon/edit/matchbrackets.js"></script>
 		
 		<script src="bower_components/jquery/dist/jquery.js"></script>
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 		
-		<script src="scripts/jtool-auto-proc.js"></script>
+		<script src="scripts/ui-codemirror.js"></script>
 		<script src="scripts/controller.js"></script>
 		<script src="scripts/factory.js"></script>
 		<script src="scripts/directive.js"></script>
 		<script src="scripts/app.js"></script>
 		
+		
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		
+		
+		<script src="scripts/jtool-auto-proc.js"></script>
+		<script src="scripts/jtool-btn-proc.js"></script>
+		
+		<script src="scripts/ui-codemirror.js"></script>
 		
 	</body>
 </html>
