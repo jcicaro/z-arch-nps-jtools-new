@@ -7,7 +7,7 @@
 	 */
 	app.controller('jtoolsCtrl', ['$scope', function($scope) {
 		$scope.results = "";
-		
+	
 		var editorRight = CodeMirror.fromTextArea(document.getElementById("editorRight"), {
 			lineNumbers : true,
 			mode : "text/javascript",
@@ -17,7 +17,7 @@
 			matchBrackets : true
 		}); //theme: 'twilight',
 		editorRight.setSize("100%", "100%");
-
+		
 		var editorLeft = CodeMirror.fromTextArea(document.getElementById("editorLeft"), {
 			lineNumbers : true,
 			mode : "text/javascript",
@@ -30,7 +30,7 @@
 		editorLeft.on('cursorActivity', function() { //'change'
 			toEditorRight();
 		});
-		
+	
 		var textLeft = "";
 		var textRight = "";
 		
@@ -54,7 +54,7 @@
 
 	}]);
 
-	
+
 	
 	/*
 	app.controller('codemeCtrl', ['$scope', 'DataFactory', function($scope, DataFactory) {

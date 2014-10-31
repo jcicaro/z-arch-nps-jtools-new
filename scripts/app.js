@@ -15,7 +15,7 @@
 			})
 			.state('codeme', {
 				url: '/codeme',
-				templateUrl: 'templates/codeme.html',
+				templateUrl: 'templates/codeme.html'
 				/*controller: 'codemeCtrl'*/
 			})
 	}]);
