@@ -1,16 +1,14 @@
 (function() {
 	
 	var app = angular.module('controller', []);
+	
 	/*
 	 * Controller
 	 */
 	app.controller('jtoolsCtrl', ['$scope', function($scope) {
-  
-		/*
-		 * Using DOM but this can be improved by integrating CodeMirror with AngularJS using $scope
-		 */
 		
 		$scope.results = {};
+		$scope.savedLines = [];
 	
 		var editorRight = CodeMirror.fromTextArea(document.getElementById("editorRight"), {
 			lineNumbers : true,
@@ -49,6 +47,12 @@
 			var cursor = editorLeft.getCursor();
 			var textLeft = editorLeft.getLine(cursor.line);
 			return textLeft;
+		}
+		
+		function getTextFromEditor(cmEditor) {
+			var cursor = cmEditor.getCursor();
+			var text = cmEditor.getLine(cursor.line);
+			return text;
 		}
 		
 		function toSummary(resultSet) {
@@ -124,6 +128,28 @@
 		$scope.copyLine = function() {
 			var line = editorRight.getLine(editorRight.getCursor().line);
 			editorLeft.setValue(editorLeft.getValue() + "\n\n" + line);
+		};
+		
+		$scope.saveLine = function() {
+			var index = $scope.savedLines.unshift(getTextFromEditor(editorRight));
+			alert("Line Saved! \n\n" + $scope.savedLines[0]);
+		};
+		
+		$scope.retrieveLines = function() {
+			var len = $scope.savedLines.length;
+			var retHeader = "\n\n########## RETRIEVED LINES ##########\n";
+			var retFooter = "\n\n######## END RETRIEVED LINES ########\n";
+			editorLeft.setValue(editorLeft.getValue() + retHeader);
+			for (var i=0; i<len; i++) {
+				var newTxt = $scope.savedLines[i];
+				if(editorLeft.getValue()) {
+					editorLeft.setValue(editorLeft.getValue() + "\n\n" + newTxt);
+				}
+				else {
+					editorLeft.setValue(newTxt);
+				}
+			}
+			editorLeft.setValue(editorLeft.getValue() + retFooter);
 		};
 		
 	}]);
