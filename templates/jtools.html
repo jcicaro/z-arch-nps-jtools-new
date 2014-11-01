@@ -40,7 +40,7 @@
 								</div>
 							 	<div class="btn-group dropup">
 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-									    Add Sample Input <span class="caret"></span>
+									    Add Sample <span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu" role="menu">
 										  	
@@ -65,48 +65,38 @@
 						<!-- <div id="cmRight">
 							<textarea ui-codemirror="cmOptionRight" ng-model="cmLeft"></textarea>
 						</div> -->
+						
 						<div class="form-group">
 							<textarea name="" id="editorRight" rows="10"></textarea>
 						</div>
 						
 						<div class="btn-group btn-group-justified">
-							<div class="btn-group">
-								<button id="copyLine" type="button" class="btn btn-default" ng-click="copyLine()">
-										Copy Line To Input
+							<div class="btn-group dropup">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								    Lines <span class="caret"></span>
 								</button>
+								<ul class="dropdown-menu" role="menu"> 	
+								  	<li><span id="copyLine" type="button" class="btn" ng-click="copyLine()">Copy Line to Input</span></li>
+								    <li><span id="saveLine" type="button" class="btn" ng-click="saveLine()">Save Line</span></li>
+								    <li><span id="retrieveLines" type="button" class="btn" ng-click="retrieveLines()">Show Saved Lines</span></li>
+								</ul>
+							</div>
+							
+							<div class="btn-group dropup">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								    Property Array <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu"> 	
+								  	<li><span id="addToArray" type="button" class="btn" ng-click="addToArray()">Add to Array</span></li>
+								    <li><span id="showArray" type="button" class="btn" ng-click="showArray()">Show Array</span></li>
+								</ul>
 							</div>
 							<div class="btn-group">
-								<button id="saveLine" type="button" class="btn btn-default" ng-click="saveLine()">
-										Save Line
-								</button>
-							</div>
-							<div class="btn-group">
-								<button id="retrieveLines" type="button" class="btn btn-default" ng-click="retrieveLines()">
-										Retrieve Saved Lines
+								<button id="clearRight" type="button" class="btn btn-default" ng-click="clearRight()">
+										Clear
 								</button>
 							</div>
 						</div>
-						<div class="form-group">
-							 
-							<div class="btn-group btn-group-justified">
-								<div class="btn-group">
-									<button id="addToArray" type="button" class="btn btn-default" ng-click="addToArray()">
-											Add to Array
-									</button>
-								</div>
-								<div class="btn-group">
-									<button id="showArray" type="button" class="btn btn-default" ng-click="showArray()">
-											Show Array
-									</button>
-								</div>
-								<div class="btn-group">
-									<button id="clearRight" type="button" class="btn btn-default" ng-click="clearRight()">
-											Clear
-									</button>
-								</div>
-							</div>
-						</div>
-						
 						
 					</div><!--/. panel-body-->
 					
