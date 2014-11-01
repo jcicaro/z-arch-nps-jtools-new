@@ -107,21 +107,26 @@ var JTOOLBTNPROC = (function() {
 			
 			//Add FNC Without Brackets Example
 			addFNCWoBrackets: function() {
-				var INPUT = "^[123456]-[234567]-[5678941]\\.pdf$";
+				var INPUT = "^[484087]-[484088]-[484089]-[484060]_[484070]\\.(pdf)$";
 				var note = "\n\n\n" + "Note: Do not put a semicolon at the end of the file extension section. This will automatically do it for you if required." + "\n";
 				return (INPUT + note);
 			},
 			
 			addSimpleInput: function() {
-				var SIMPLEINPUT = "^((([1234567])-([234567]))|(([123456])))-([567894])|^(((([123456])-([234567]))|(([123456])))-([567894]))\.pdf$";
+				var SIMPLEINPUT = "^((([1234567])-([234567]))|(([123456])))-([567894])|^(((([123456])-([234567]))|(([123456])))-([567894]))\\.pdf$";
 				var note = "\n\n\n" + "Note: You can ignore the \'ADD BRACKETS\' section if there are brackets in the input already." + "\n";
 				return (SIMPLEINPUT + note);
 			},
 			
 			addComplexInput: function() {
-				var COMPLEXINPUT = "^(((([6461181])-([646119])-((([646112])-([646085]))|(([646112])-([854793])-([865427])-([646085])(-([646092]))?)|(([646099])-([646112])-([646093])-([646092])-(([646095])|([865428])))))_([646102])\.(pdf|nwd|tbp|xsr)$)|((([646118])-([646119])-([646112])-([859160])-([854794])-([646093]))_([646102])(-([859159]))?\.(pdf|nwd|tbp|xsr)$)|((([646118])-([646119])-((([682689])-([646085]))|(([646099])-([682689])-([646093])-([646092])-([646095]))))_([646102])\.(zip)$)|((([646118])-([646119])-(((MP|MD)-([865427]))|((SD)-([854793])))-([646085]))_([646102])\.(pdf|nwd|tbp|xsr)$))";
+				var COMPLEXINPUT = "^(((([6461181])-([646119])-((([646112])-([646085]))|(([646112])-([854793])-([865427])-([646085])(-([646092]))?)|(([646099])-([646112])-([646093])-([646092])-(([646095])|([865428])))))_([646102])\\.(pdf|nwd|tbp|xsr)$)|((([646118])-([646119])-([646112])-([859160])-([854794])-([646093]))_([646102])(-([859159]))?\\.(pdf|nwd|tbp|xsr)$)|((([646118])-([646119])-((([682689])-([646085]))|(([646099])-([682689])-([646093])-([646092])-([646095]))))_([646102])\\.(zip)$)|((([646118])-([646119])-(((MP|MD)-([865427]))|((SD)-([854793])))-([646085]))_([646102])\\.(pdf|nwd|tbp|xsr)$))";
 				var note = "\n\n\n" + "Note: Do not put a semicolon at the end of the file extension section. This will automatically do it for you if required." + "\n";
 				return (COMPLEXINPUT + note);
+			},
+			
+			addSampleArray: function() {
+				var INPUT = "[484087]	DWG Project\n[484088]	DWG Discipline\n[484089]	DWG Area\n[484060]	Sequence No.\n[484070]	Revision\n[484058]	Subject\n[484059]	Attachment Title";
+				return INPUT;
 			}
 			
 			

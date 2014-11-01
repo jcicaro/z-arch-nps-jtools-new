@@ -9,7 +9,6 @@
 		
 		$scope.results = {};
 		$scope.savedLines = [];
-		$scope.isActive = true;
 		$scope.lastSavedAlert = "";
 		$scope.propInfoArray = [];
 	
@@ -140,14 +139,11 @@
 		$scope.copyLine = function() {
 			var line = editorRight.getLine(editorRight.getCursor().line);
 			editorLeft.setValue(editorLeft.getValue() + "\n\n" + line);
-			$scope.isActive = true;
 		};
 		
 		$scope.saveLine = function() {
 			var index = $scope.savedLines.unshift(getTextFromEditor(editorRight));
-			//alert("Line Saved! \n\n" + $scope.savedLines[0]);
-			$scope.lastSavedAlert = $scope.savedLines[0];
-			$scope.isActive = false;
+			editorRight.setValue("Last Saved::\n" + $scope.savedLines[0]);
 		};
 		
 		$scope.retrieveLines = function() {
@@ -165,33 +161,48 @@
 				}
 			}
 			editorLeft.setValue(editorLeft.getValue() + retFooter);
-			$scope.isActive = true;
 		};
 		
 		
 		$scope.addToArray = function(){
-			//alert("Test");
 			$scope.propInfoArray = JTOOLAUTOPROC.processOther(editorRight.getValue());
 			editorRight.setValue("Properties added...")
 		};
 		
 		$scope.showArray = function(){
-			//alert();
 			editorRight.setValue(toResults($scope.propInfoArray));
+		};
+		
+		$scope.addSampleArray = function(){
+			var results = JTOOLBTNPROC.addSampleArray();
+			editorRight.setValue(results);
 		};
 		
 		$scope.replaceIdsWithNames = function(){
 			if ($scope.propInfoArray.length > 0) {
-				//alert();
 				var newTxt = getLeftText();
-				//alert(newTxt);
 				for(var i=0, len=$scope.propInfoArray.length; i<len; i++) {
 					var pId = $scope.propInfoArray[i].propId.toString();
 					var rePId = new RegExp(pId, 'g');
-					//var currentValue = editorRight.getValue();
-					//editorRight.setValue(currentValue + "\n\n" + objArray[i].propId.toString() + " : " + objArray[i].propName.toString());
 					if(newTxt.match(rePId)) {
 						newTxt = newTxt.replace(rePId, $scope.propInfoArray[i].propName.toString());
+					}
+				}
+				editorRight.setValue(newTxt);
+			}
+			else {
+				editorRight.setValue("No properties have been added yet...");
+			}
+		};
+		
+		$scope.replaceNamesWithIds = function(){
+			if ($scope.propInfoArray.length > 0) {
+				var newTxt = getLeftText();
+				for(var i=0, len=$scope.propInfoArray.length; i<len; i++) {
+					var pName = $scope.propInfoArray[i].propName.toString();
+					var rePName = new RegExp(pName, 'g');
+					if(newTxt.match(rePName)) {
+						newTxt = newTxt.replace(rePName, $scope.propInfoArray[i].propId.toString());
 					}
 				}
 				editorRight.setValue(newTxt);
