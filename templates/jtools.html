@@ -79,30 +79,36 @@
 								</button>
 							</div>
 						</div>
+						
+						
 					</div><!--/. panel-body-->
+					
 				</div><!--/. panel panel-default-->
 
 				<div class="panel panel-default">
 					
 					<div class="panel-body">
 					
-					<div class="input-group">
-						<span class="input-group-addon">(</span>
-						<input type="text" id="countOpen" disabled class="form-control">
-						<span class="input-group-addon">)</span>
-						<input type="text" id="countClosed" disabled class="form-control">
-						<span class="input-group-addon">Characters</span>
-						<input type="text" id="count" disabled class="form-control">
-						<!--
-						<span class="input-group-btn">
-							<input type="button" id="findPar" value="Find $x" class="btn btn-primary">
-						</span>
-						<input type="text" id="inpFindPar" placeholder="eg. 10" class="form-control">
-						-->
-					</div>
-					
-					
-					<textarea id="textResult" rows="5" cols="90" readonly="readonly" class="form-control"></textarea>
+						<div class="input-group">
+							<span class="input-group-addon">(</span>
+							<input type="text" id="countOpen" disabled class="form-control">
+							<span class="input-group-addon">)</span>
+							<input type="text" id="countClosed" disabled class="form-control">
+							<span class="input-group-addon">Characters</span>
+							<input type="text" id="count" disabled class="form-control">
+							<!--
+							<span class="input-group-btn">
+								<input type="button" id="findPar" value="Find $x" class="btn btn-primary">
+							</span>
+							<input type="text" id="inpFindPar" placeholder="eg. 10" class="form-control">
+							-->
+						</div>
+						<textarea id="textResult" rows="5" cols="90" readonly="readonly" class="form-control"></textarea>
+						<br>
+						<div class="alert alert-success" role="alert" ng-hide="isActive">
+							<strong>Last Saved:: </strong>
+							{{lastSavedAlert}}
+						</div>
 					</div><!--/. panel-body-->
 				</div><!--/. panel panel-default-->
 			</div><!--/.col-xs-6 col-md-3 -->

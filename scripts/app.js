@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('app', ['ui.router', 'controller', 'factory', 'directive', 'ui.codemirror']);
+	var app = angular.module('app', ['ui.router', 'controller', 'factory', 'directive']);
 
 	/*
 	 * Route

@@ -9,6 +9,8 @@
 		
 		$scope.results = {};
 		$scope.savedLines = [];
+		$scope.isActive = true;
+		$scope.lastSavedAlert = "";
 	
 		var editorRight = CodeMirror.fromTextArea(document.getElementById("editorRight"), {
 			lineNumbers : true,
@@ -128,11 +130,14 @@
 		$scope.copyLine = function() {
 			var line = editorRight.getLine(editorRight.getCursor().line);
 			editorLeft.setValue(editorLeft.getValue() + "\n\n" + line);
+			$scope.isActive = true;
 		};
 		
 		$scope.saveLine = function() {
 			var index = $scope.savedLines.unshift(getTextFromEditor(editorRight));
-			alert("Line Saved! \n\n" + $scope.savedLines[0]);
+			//alert("Line Saved! \n\n" + $scope.savedLines[0]);
+			$scope.lastSavedAlert = $scope.savedLines[0];
+			$scope.isActive = false;
 		};
 		
 		$scope.retrieveLines = function() {
@@ -150,6 +155,7 @@
 				}
 			}
 			editorLeft.setValue(editorLeft.getValue() + retFooter);
+			$scope.isActive = true;
 		};
 		
 	}]);
