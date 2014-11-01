@@ -11,6 +11,7 @@
 		$scope.savedLines = [];
 		$scope.isActive = true;
 		$scope.lastSavedAlert = "";
+		$scope.propInfoArray = [];
 	
 		var editorRight = CodeMirror.fromTextArea(document.getElementById("editorRight"), {
 			lineNumbers : true,
@@ -36,7 +37,6 @@
 			editorRight.setValue($scope.results.combinedResults);
 			toSummary($scope.results);
 		});
-	
 		
 		//==================================================================================================================//
 		
@@ -69,6 +69,16 @@
 			
 			var resText = document.getElementById("textResult");
 			resText.innerHTML = resultSet.addedAssignments;
+		}
+		
+		//print propInfoArray
+		function toResults(objArray) {
+			editorRight.setValue("");
+			for(var i=0, len=objArray.length; i<len; i++) {
+				var currentValue = editorRight.getValue();
+				//var currentValue = "";
+				editorRight.setValue(currentValue + "\n" + objArray[i].propId.toString() + " : " + objArray[i].propName.toString());
+			}
 		}
 		
 		//==================================================================================================================//
@@ -157,6 +167,45 @@
 			editorLeft.setValue(editorLeft.getValue() + retFooter);
 			$scope.isActive = true;
 		};
+		
+		
+		$scope.addToArray = function(){
+			//alert("Test");
+			$scope.propInfoArray = JTOOLAUTOPROC.processOther(editorRight.getValue());
+			editorRight.setValue("Properties added...")
+		};
+		
+		$scope.showArray = function(){
+			//alert();
+			editorRight.setValue(toResults($scope.propInfoArray));
+		};
+		
+		$scope.replaceIdsWithNames = function(){
+			if ($scope.propInfoArray.length > 0) {
+				//alert();
+				var newTxt = getLeftText();
+				//alert(newTxt);
+				for(var i=0, len=$scope.propInfoArray.length; i<len; i++) {
+					var pId = $scope.propInfoArray[i].propId.toString();
+					var rePId = new RegExp(pId, 'g');
+					//var currentValue = editorRight.getValue();
+					//editorRight.setValue(currentValue + "\n\n" + objArray[i].propId.toString() + " : " + objArray[i].propName.toString());
+					if(newTxt.match(rePId)) {
+						newTxt = newTxt.replace(rePId, $scope.propInfoArray[i].propName.toString());
+					}
+				}
+				editorRight.setValue(newTxt);
+			}
+			else {
+				editorRight.setValue("No properties have been added yet...");
+			}
+		};
+		
+		$scope.clearRight = function(){
+			$scope.propInfoArray = [];
+			editorRight.setValue("");
+		};
+		
 		
 	}]);
 

@@ -381,6 +381,28 @@ var JTOOLAUTOPROC = (function() {
 
 			return resultSet;
 			//return res;
+		},
+		
+		processOther : function(inp) {
+			
+			var linesArray = inp.split('\n');
+			var propArray = [];
+			
+			for (var i=0, len=linesArray.length; i<len; i++) {
+				var str = linesArray[i];
+				if (str.indexOf("[") > -1) {
+					var propId = str.substring(str.indexOf("[")+1, str.indexOf("]"));
+					var propName = str.substring(str.indexOf("]")+1, str.length).trim();
+					var prop = {};
+					prop.propId = propId;
+					prop.propName = propName;
+					propArray.push(prop);
+				}
+			}
+			
+			return propArray;
+			//inp.length
+			//return inp.toString();
 		}
 	};
 })();
