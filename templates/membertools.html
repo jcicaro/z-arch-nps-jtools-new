@@ -1,0 +1,67 @@
+<div class="default">
+	<div class="col-xs-12 col-md-12">
+		
+		
+		<div class="panel panel-default">
+			<div class="panel-heading"><h4 class="panel-title">Paste CSV Here</h4></div>
+				
+			<div class="panel-body">
+				
+				<form id="inputForm" action="">
+					<div class="form-group">
+						<textarea name="" id="csvContainer" rows="5"></textarea>
+					</div>
+				</form>
+				<div class="btn-group">
+					<button id="setColumnHeaders" type="button" class="btn btn-default" ng-click="setColumnHeaders()">
+								Set Column Headers
+					</button>
+					
+					<button id="setCompanies" type="button" class="btn btn-default" ng-click="setCompanies()">
+								Set Companies
+					</button>
+					
+					<button id="execute" type="button" class="btn btn-default" ng-click="execute()">
+								Execute
+					</button>
+				</div>
+			</div><!--/. panel-body-->
+			
+			<div class="panel-body">
+				<textarea name="" id="csvContainer" rows="2" cols="100"> {{propertyHeaderInput}} : {{companyABNInput}} : {{companyShortCodeInput}}</textarea>
+			</div><!--/. panel-body-->
+			
+			<div class="panel-body">
+				<span ng-repeat="portalHeader in portalHeaders"> : {{portalHeader}} : </span>
+			</div><!--/. panel-body-->
+		</div><!--/. panel panel-default-->
+		
+		
+		<div class="panel">
+			
+			<div class="col-xs-12 col-md-6">
+				<div class="panel-body">
+					<div class="input-group" ng-repeat="columnHeader in csvColumnHeaders">
+					  	<span class="input-group-addon">{{columnHeader}}</span>
+					  	<!-- <input type="text" class="form-control" placeholder="Column Name"> -->
+					  	<input list="portalHeaders" name="portalHeaders" class="form-control" placeholder="CSV Header" ng-model="propertyHeaderInput[$index]">
+						<datalist id="portalHeaders">
+						  	<option ng-repeat="portalHeader in portalHeaders">{{portalHeader}}</option>
+						</datalist>
+					</div>
+				</div><!--/. panel-body-->
+			</div><!--/.col-xs-12 col-md-6 -->
+			<div class="col-xs-12 col-md-6">
+				<div class="panel-body">
+					<div class="input-group" ng-repeat="company in companies track by $index">
+					  	<span class="input-group-addon">{{company}}</span>
+					  	<input type="text" class="form-control" placeholder="Confirm Short Code" ng-model="companyShortCodeInput[$index]">
+					  	<input type="text" class="form-control" placeholder="ABN" ng-model="companyABNInput[$index]">
+					</div>
+				</div><!--/. panel-body-->
+			</div><!--/.col-xs-12 col-md-6 -->
+			
+		</div><!--/. panel panel-default-->
+		
+	</div><!--/.col-xs-12 col-md-12 -->
+</div>

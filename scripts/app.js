@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('app', ['ui.router', 'controller', 'factory', 'directive']);
+	var app = angular.module('app', ['ui.router', 'controller', 'membertools-controller', 'factory', 'directive']);
 
 	/*
 	 * Route
@@ -12,6 +12,11 @@
 				url: '/',
 				templateUrl: 'templates/jtools.html',
 				controller: 'jtoolsCtrl'
+			})
+			.state('membertools', {
+				url: '/membertools',
+				templateUrl: 'templates/membertools.html',
+				controller: 'memberToolsCtrl'
 			})
 			.state('codeme', {
 				url: '/codeme',
