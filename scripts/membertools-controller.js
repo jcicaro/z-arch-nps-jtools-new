@@ -25,8 +25,8 @@
 		$scope.portalOrderedArray = [];
 		$scope.projectOrderedArray = [];
 		
-		$scope.csvOutput = ""; //the main output string - for the CSV
-		$scope.csvOutputProject = ""; //the main output string - for the CSV
+		$scope.csvOutput = ""; //the main output string - portal CSV
+		$scope.csvOutputProject = ""; //the main output string - project CSV
 		$scope.textOutput = ""; //for the text Area
 		$scope.textOutputProject = ""; //for the text Area
 
@@ -48,6 +48,9 @@
 		
 		$scope.portalUsernameIndex = 8; //from the actual csv from the portal
 		
+		$scope.showResults = false;
+		$scope.showTransformMap = false;
+		
 		//Test function only, test functions can be put here for testing and debugging
 		$scope.execute = function() {
 			//alert("");
@@ -60,6 +63,7 @@
 		$scope.showPreProcessor = function() {
 			$scope.setColumnHeaders();
 			$scope.setCompanies();
+			$scope.showTransformMap = true;
 		};
 
 		//Helper: showPreProcessor - Sets $scope.csvColumnHeaders, this one starts the process for transform mapping csv
@@ -152,6 +156,8 @@
 		//$scope.csvHeaderInput = [];
 		$scope.process = function() {
 			$scope.saveCompanies();
+			$scope.showResults = true;
+			$scope.showTransformMap = false;
 			//alert($scope.csvHeaderInput);
 		
 			createPortalMapArray(); //Uses: $scope.csvHeaderInput, $scope.portalColumnHeaders, $scope.csvColumnHeaders, $scope.csvToPortalMapArray
@@ -308,16 +314,53 @@
 
 		};
 		
-		$scope.save = function () {
+		$scope.savePortalCSV = function () {
 
 			var csvString = $scope.csvOutput;
 			var a         = document.createElement('a');
 			a.href        = 'data:attachment/csv,' + csvString;
 			a.target      = '_blank';
-			a.download    = 'myFile.csv';
+			a.download    = 'portal_bulkImportUser.csv';
 			
 			document.body.appendChild(a);
 			a.click();
+		};
+		
+		$scope.saveProjectCSV = function () {
+
+			var csvString = $scope.csvOutputProject;
+			var a         = document.createElement('a');
+			a.href        = 'data:attachment/csv,' + csvString;
+			a.target      = '_blank';
+			a.download    = 'project_bulkImportUser.csv';
+			
+			document.body.appendChild(a);
+			a.click();
+		};
+		
+		$scope.reloadRoute = function() {
+			$scope.csvInput = ""; //the input from csvContainer CM editor
+			$scope.csvConvertedArray = []; //each line in the csvInput as arrays
+			$scope.csvColumnHeaders = []; //array containing strings - column headers from the CSV
+			$scope.csvCompanyIndex = null; //shows which column of the CSV the company is
+			$scope.portalOrderedArray = [];
+			$scope.projectOrderedArray = [];
+			
+			$scope.csvOutput = ""; //the main output string - for the CSV
+			$scope.csvOutputProject = ""; //the main output string - for the CSV
+			$scope.textOutput = ""; //for the text Area
+			$scope.textOutputProject = ""; //for the text Area
+	
+			$scope.companies = []; //array of Companies from the CSV
+			$scope.compObjects = []; //array of Company Objects with suffix and ABN : //[{compName, compSuffix, compABN}]
+			$scope.companyShortCodeInput = []; //from the ng-repeat input in the company section
+			$scope.companyABNInput = []; //from the ng-repeat input in the company section
+			
+			$scope.csvToPortalMapArray = []; 
+			
+			$scope.showResults = false;
+			$scope.showTransformMap = false;
+		
 		};
 		
 		

@@ -1,96 +1,97 @@
 <div class="default">
 	<div class="col-xs-12 col-md-12">
 		
-		
-		<div class="panel panel-default">
-			<div class="panel-heading"><h4 class="panel-title">Paste CSV Here</h4></div>
-				
-			<div class="panel-body">
-				
+		<div class="jumbotron" ng-show="!showResults && !showTransformMap">
+			<h1>Paste CSV Here</h1>
+			<p>
+				Convert spreadsheet into a CSV, open it in a text editor, copy text, and then paste it here.
+			</p>
+			<p>
 				<form id="inputForm" action="">
 					<div class="form-group">
 						<textarea name="" id="csvContainer" rows="5"></textarea>
 					</div>
 				</form>
-				<div class="btn-group">
-					<button id="showPreProcessor" type="button" class="btn btn-default" ng-click="showPreProcessor()">
-								Show Preprocessor
-					</button>
-					
-					<!--
-					<button id="execute" type="button" class="btn btn-default" ng-click="execute()">
-								Execute
-					</button>
-					-->
+			</p>
+			<p>
+				<button id="showPreProcessor" type="button" class="btn btn-primary btn-lg" ng-click="showPreProcessor()">
+					Start CSV Processing
+				</button>
+			</p>
+		</div>
+			
+	</div><!--/. panel panel-default-->
+		
+	
+		
+		
+	<div class="panel" ng-show="showTransformMap">
+		
+		<div class="col-xs-12 col-md-6">
+			<div class="panel-body">
+				<div class="input-group" ng-repeat="portalHeader in portalColumnHeaders">
+				  	<span class="input-group-addon">{{portalHeader}}</span>
+				  	<!-- <input type="text" class="form-control" placeholder="Column Name"> -->
+				  	<input list="csvColumnHeaders" name="csvColumnHeaders" class="form-control" placeholder="CSV Header" ng-model="csvHeaderInput[$index]">
+					<datalist id="csvColumnHeaders">
+					  	<option ng-repeat="columnHeader in csvColumnHeaders">{{columnHeader}}</option>
+					</datalist>
 				</div>
 			</div><!--/. panel-body-->
-			
-			
-			
-			
-		</div><!--/. panel panel-default-->
+		</div><!--/.col-xs-12 col-md-6 -->
+		<div class="col-xs-12 col-md-6">
+			<div class="panel-body">
+				<div class="input-group" ng-repeat="company in companies track by $index">
+				  	<span class="input-group-addon">{{company}}</span>
+				  	<input type="text" class="form-control" placeholder="Username suffix" ng-model="companyShortCodeInput[$index]">
+				  	<input type="text" class="form-control" placeholder="ABN" ng-model="companyABNInput[$index]">
+				</div>
+			</div><!--/. panel-body-->	
+
+			<div class="panel-body">
+				<header>Columns From Uploaded CSV</header>
+				<span ng-repeat="columnHeader in csvColumnHeaders"> : {{columnHeader}} : </span>
+			</div><!--/. panel-body-->
+		</div><!--/.col-xs-12 col-md-6 -->
+		<div class="col-xs-12 col-md-12">
+			<div class="panel-body">
+				<div class="btn-group">
+					<button id="process" type="button" class="btn btn-primary btn-lg" ng-click="process()">
+						Process
+					</button>
+					<button type="button" class="btn btn-danger btn-lg" ng-click="reloadRoute()" ng-show="showTransformMap || showResults">
+						Reload
+					</button>
+				</div>
+			</div><!--/. panel-body-->
+		</div><!--/.col-xs-12 col-md-6 -->
+	</div><!--/. panel -->
 		
-		<div class="panel">
-			
-			<div class="panel-body">
-				<textarea name="" id="csvOutputPortal" rows="5" class="textwrapper">{{textOutput}}</textarea>
-			</div><!--/. panel-body-->
-			
-			<div class="panel-body">
-				<textarea name="" id="csvOutputProject" rows="5" class="textwrapper">{{textOutputProject}}</textarea>
-			</div><!--/. panel-body-->
+		
+		
+	<div class="panel" ng-show="showResults">
+		
+		<div class="panel-body">
+			<textarea name="" id="csvOutputPortal" rows="10" class="textwrapper">{{textOutput}}</textarea>
+		</div><!--/. panel-body-->
+		
+		<div class="panel-body">
+			<textarea name="" id="csvOutputProject" rows="10" class="textwrapper">{{textOutputProject}}</textarea>
+		</div><!--/. panel-body-->
+		
+		<div class="panel-body">
 			<div class="btn-group">
-				<button id="save" type="button" class="btn btn-default" ng-click="save()">
-							Save
+				<button id="savePortalCSV" type="button" class="btn btn-primary btn-lg" ng-click="savePortalCSV()">
+							Save CSV for <strong>Portal</strong> User Bulk Import
 				</button>
-				
-				<!--
-				<button id="execute" type="button" class="btn btn-default" ng-click="execute()">
-							Execute
+				<button id="saveProjectCSV" type="button" class="btn btn-primary btn-lg" ng-click="saveProjectCSV()">
+							Save CSV for <strong>Project</strong> User Bulk Import
 				</button>
-				-->
+				<button type="button" class="btn btn-danger btn-lg" ng-click="reloadRoute()" ng-show="showTransformMap || showResults">
+					Reload
+				</button>
 			</div>
-		</div><!--/. panel -->
+		</div>
+	</div><!--/. panel -->
 		
-		
-		<div class="panel">
-			
-			<div class="col-xs-12 col-md-6">
-				<div class="panel-body">
-					<div class="input-group" ng-repeat="portalHeader in portalColumnHeaders">
-					  	<span class="input-group-addon">{{portalHeader}}</span>
-					  	<!-- <input type="text" class="form-control" placeholder="Column Name"> -->
-					  	<input list="csvColumnHeaders" name="csvColumnHeaders" class="form-control" placeholder="CSV Header" ng-model="csvHeaderInput[$index]">
-						<datalist id="csvColumnHeaders">
-						  	<option ng-repeat="columnHeader in csvColumnHeaders">{{columnHeader}}</option>
-						</datalist>
-					</div>
-				</div><!--/. panel-body-->
-			</div><!--/.col-xs-12 col-md-6 -->
-			<div class="col-xs-12 col-md-6">
-				<div class="panel-body">
-					<div class="input-group" ng-repeat="company in companies track by $index">
-					  	<span class="input-group-addon">{{company}}</span>
-					  	<input type="text" class="form-control" placeholder="Username suffix" ng-model="companyShortCodeInput[$index]">
-					  	<input type="text" class="form-control" placeholder="ABN" ng-model="companyABNInput[$index]">
-					</div>
-					
-					
-					<div class="btn-group">
-						<button id="process" type="button" class="btn btn-default" ng-click="process()">
-									Process
-						</button>
-					</div>
-				</div><!--/. panel-body-->
-				<div class="panel-body">
-					<header>Columns From Uploaded CSV</header>
-					<span ng-repeat="columnHeader in csvColumnHeaders"> : {{columnHeader}} : </span>
-				</div><!--/. panel-body-->
-			</div><!--/.col-xs-12 col-md-6 -->
-			
-		</div><!--/. panel -->
-		
-		
-		
-	</div><!--/.col-xs-12 col-md-12 -->
 </div>
