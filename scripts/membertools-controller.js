@@ -54,10 +54,6 @@
 		//Test function only, test functions can be put here for testing and debugging
 		$scope.execute = function() {
 			//alert("");
-			//arrayToProjectCSVString();
-			//alert(getCompanySuffixFromUsername('wendy.parker.thiess'));
-			//getCompanyABN = function(compSuffix) 
-			//alert(getCompanyABN(getCompanySuffixFromUsername('wendy.parker.thiess')));
 		};
 		
 		$scope.showPreProcessor = function() {
@@ -115,12 +111,10 @@
 				$scope.compObjects.push(obj);
 				//[{compName, compSuffix, compABN}]
 			}
-			//alert($scope.compObjects);
 		};
 		
 		//Helper: returns the suffix based on the Company name from the CSV
 		getCompanySuffix = function(compName) {
-			//alert($scope.compObjects);
 			var suffix = "";
 			for(var i=0, len=$scope.compObjects.length; i<len; i++) {
 				suffix = $scope.compObjects[i].compSuffix;
@@ -133,7 +127,6 @@
 		
 		//Helper: returns the ABN based on the Company suffix from the CSV
 		getCompanyABN = function(compSuffix) {
-			//alert($scope.compObjects);
 			var compABN = "";
 			for(var i=0, len=$scope.compObjects.length; i<len; i++) {
 				compABN = $scope.compObjects[i].compABN;
@@ -146,19 +139,16 @@
 		
 		//Helper: returns the suffix based on the username
 		getCompanySuffixFromUsername = function(username) {
-			//alert($scope.compObjects);
 			var unameArray = username.split(".");
 			var suffix = unameArray[2]; //[fname,lname,suffix]
 			return suffix;
 		};
 		
 		
-		//$scope.csvHeaderInput = [];
 		$scope.process = function() {
 			$scope.saveCompanies();
 			$scope.showResults = true;
 			$scope.showTransformMap = false;
-			//alert($scope.csvHeaderInput);
 		
 			createPortalMapArray(); //Uses: $scope.csvHeaderInput, $scope.portalColumnHeaders, $scope.csvColumnHeaders, $scope.csvToPortalMapArray
 			function createPortalMapArray() {
@@ -181,23 +171,17 @@
 						var csvToPortalMap = {};
 						csvToPortalMap.portalHeader = $scope.portalColumnHeaders[i];
 						csvToPortalMap.csvHeader = "";
-						//var csvHeaderIndex = findIndex($scope.csvColumnHeaders, csvToPortalMap.csvHeader);
-						//var portalHeaderIndex = findIndex($scope.portalColumnHeaders, csvToPortalMap.portalHeader);
+						
 						csvToPortalMap.portalHeaderIndex = "";
 						csvToPortalMap.csvHeaderIndex = "";
 						$scope.csvToPortalMapArray.push(csvToPortalMap);
 					}
 				}
-				//alert($scope.csvToPortalMapArray);
 			}
 			
 			
 			arrayToPortalCSVString();
 			function arrayToPortalCSVString() {
-				//process arrays
-				//var energy = fruits.join();
-				//var energy = fruits.join(" and ");
-				//$scope.csvConvertedArray;
 				
 				var lineArray = [];
 				var colArray = [];
@@ -213,7 +197,6 @@
 						//push the value in that column to $scope.newColArray
 						var csvIndex = $scope.csvToPortalMapArray[j].csvHeaderIndex;
 						var portalIndex = $scope.csvToPortalMapArray[j].portalHeaderIndex;
-						//newColArray.push(colArray[csvIndex]);
 						var val = colArray[csvIndex];
 						if(typeof colArray[csvIndex] != 'undefined') {
 							val = val.trim();
@@ -236,7 +219,6 @@
 				}
 				
 				$scope.portalOrderedArray = orderedArray;
-				//alert($scope.portalOrderedArray);
 			
 				//convert orderedArray to string
 				//Loop through orderedArray
@@ -247,8 +229,7 @@
 				}
 				$scope.textOutput = newStrTxt;
 				
-				//convert orderedArray to string
-				//Loop through orderedArray
+				//generate CSV friendly string using "%0A"
 				var newStr = "";
 				newStr = $scope.portalColumnHeaders.join(",") + "%0A";
 				for(var l=0, lenL = orderedArray.length; l<lenL; l++) {
@@ -302,8 +283,7 @@
 				}
 				$scope.textOutputProject = newStrTxt;
 				
-				//convert orderedArray to string
-				//Loop through orderedArray
+				//generate CSV friendly string using "%0A"
 				var newStr = "";
 				newStr = $scope.projectColumnHeaders.join(",") + "%0A";
 				for(var l=0, lenL = orderedArray.length; l<lenL; l++) {
