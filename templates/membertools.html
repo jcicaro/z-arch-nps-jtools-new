@@ -13,8 +13,8 @@
 					</div>
 				</form>
 				<div class="btn-group">
-					<button id="setColumnHeaders" type="button" class="btn btn-default" ng-click="setColumnHeaders()">
-								Set Column Headers
+					<button id="showPreProcessor" type="button" class="btn btn-default" ng-click="showPreProcessor()">
+								Show Preprocessor
 					</button>
 					
 					<button id="setCompanies" type="button" class="btn btn-default" ng-click="setCompanies()">
@@ -28,11 +28,11 @@
 			</div><!--/. panel-body-->
 			
 			<div class="panel-body">
-				<textarea name="" id="csvContainer" rows="2" cols="100"> {{propertyHeaderInput}} : {{companyABNInput}} : {{companyShortCodeInput}}</textarea>
+				<textarea name="" id="csvContainer" rows="3" cols="100">{{csvOutput}}</textarea>
 			</div><!--/. panel-body-->
 			
 			<div class="panel-body">
-				<span ng-repeat="portalHeader in portalHeaders"> : {{portalHeader}} : </span>
+				<span ng-repeat="columnHeader in csvColumnHeaders"> : {{columnHeader}} : </span>
 			</div><!--/. panel-body-->
 		</div><!--/. panel panel-default-->
 		
@@ -41,12 +41,12 @@
 			
 			<div class="col-xs-12 col-md-6">
 				<div class="panel-body">
-					<div class="input-group" ng-repeat="columnHeader in csvColumnHeaders">
-					  	<span class="input-group-addon">{{columnHeader}}</span>
+					<div class="input-group" ng-repeat="portalHeader in portalColumnHeaders">
+					  	<span class="input-group-addon">{{portalHeader}}</span>
 					  	<!-- <input type="text" class="form-control" placeholder="Column Name"> -->
-					  	<input list="portalHeaders" name="portalHeaders" class="form-control" placeholder="CSV Header" ng-model="propertyHeaderInput[$index]">
-						<datalist id="portalHeaders">
-						  	<option ng-repeat="portalHeader in portalHeaders">{{portalHeader}}</option>
+					  	<input list="csvColumnHeaders" name="csvColumnHeaders" class="form-control" placeholder="CSV Header" ng-model="csvHeaderInput[$index]">
+						<datalist id="csvColumnHeaders">
+						  	<option ng-repeat="columnHeader in csvColumnHeaders">{{columnHeader}}</option>
 						</datalist>
 					</div>
 				</div><!--/. panel-body-->
@@ -55,8 +55,17 @@
 				<div class="panel-body">
 					<div class="input-group" ng-repeat="company in companies track by $index">
 					  	<span class="input-group-addon">{{company}}</span>
-					  	<input type="text" class="form-control" placeholder="Confirm Short Code" ng-model="companyShortCodeInput[$index]">
+					  	<input type="text" class="form-control" placeholder="Username suffix" ng-model="companyShortCodeInput[$index]">
 					  	<input type="text" class="form-control" placeholder="ABN" ng-model="companyABNInput[$index]">
+					</div>
+					
+					<div class="btn-group">
+						<button id="process" type="button" class="btn btn-default" ng-click="process()">
+									Process
+						</button>
+						<button id="process" type="button" class="btn btn-default" ng-click="saveCompanies()">
+									Save Companies
+						</button>
 					</div>
 				</div><!--/. panel-body-->
 			</div><!--/.col-xs-12 col-md-6 -->
