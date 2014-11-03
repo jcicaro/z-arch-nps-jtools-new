@@ -24,8 +24,11 @@
 		$scope.csvCompanyIndex; //shows which column of the CSV the company is
 		$scope.portalOrderedArray = [];
 		$scope.projectOrderedArray = [];
-		$scope.csvOutput = ""; //the main output string - need to convert to CSV
-		$scope.csvOutputProject = ""; //the main output string - need to convert to CSV
+		
+		$scope.csvOutput = ""; //the main output string - for the CSV
+		$scope.csvOutputProject = ""; //the main output string - for the CSV
+		$scope.textOutput = ""; //for the text Area
+		$scope.textOutputProject = ""; //for the text Area
 
 		$scope.companies = []; //array of Companies from the CSV
 		$scope.compObjects = []; //array of Company Objects with suffix and ABN : //[{compName, compSuffix, compABN}]
@@ -220,7 +223,7 @@
 					//Username //str.toLowerCase()
 					if(!newColArray[$scope.portalUsernameIndex]) {
 						var username = newColArray[0] + "." + newColArray[1] + "." + getCompanySuffix(colArray[$scope.csvCompanyIndex]); //+company
-						newColArray[$scope.portalUsernameIndex] = username.toLowerCase();
+						newColArray[$scope.portalUsernameIndex] = username.toLowerCase().replace(/[^a-zA-Z0-9\.\-]/g,'');
 					}
 					orderedArray.push(newColArray);
 					newColArray = [];
@@ -231,10 +234,19 @@
 			
 				//convert orderedArray to string
 				//Loop through orderedArray
-				var newStr = "";
-				var newStr = $scope.portalColumnHeaders.join(",") + "\n";
+				var newStrTxt = "";
+				newStrTxt = $scope.portalColumnHeaders.join(",") + "\n";
 				for(var k=0, lenK = orderedArray.length; k<lenK; k++) {
-					newStr = newStr + orderedArray[k].join(",") + "\n";
+					newStrTxt = newStrTxt + orderedArray[k].join(",") + "\n";
+				}
+				$scope.textOutput = newStrTxt;
+				
+				//convert orderedArray to string
+				//Loop through orderedArray
+				var newStr = "";
+				newStr = $scope.portalColumnHeaders.join(",") + "%0A";
+				for(var l=0, lenL = orderedArray.length; l<lenL; l++) {
+					newStr = newStr + orderedArray[l].join(",") + "%0A";
 				}
 				$scope.csvOutput = newStr;
 			
@@ -256,8 +268,8 @@
 					newColArray.push($scope.portalOrderedArray[i][2]); //Position,
 					newColArray.push($scope.portalOrderedArray[i][7]); //Email,
 					newColArray.push($scope.portalOrderedArray[i][5]); //Fax,
-					newColArray.push($scope.portalOrderedArray[i][7]); //Mobile,
-					newColArray.push($scope.portalOrderedArray[i][5]); //Office,
+					newColArray.push($scope.portalOrderedArray[i][6]); //Mobile,
+					newColArray.push($scope.portalOrderedArray[i][4]); //Office,
 					newColArray.push(""); //Street,
 					newColArray.push(""); //City,
 					newColArray.push(""); //ZIP/Postcode,
@@ -268,41 +280,44 @@
 					newColArray.push(""); //CC DistributionGroups,
 					newColArray.push(""); //MemberGroups
 					orderedArray.push(newColArray);
+					newColArray = [];
 				}
 				
 				
 				//Set $scope.projectOrderedArray
 				$scope.projectOrderedArray = orderedArray;
 				
+				//convert orderedArray to string
+				//Loop through orderedArray
+				var newStrTxt = "";
+				newStrTxt = $scope.projectColumnHeaders.join(",") + "\n";
+				for(var k=0, lenK = orderedArray.length; k<lenK; k++) {
+					newStrTxt = newStrTxt + orderedArray[k].join(",") + "\n";
+				}
+				$scope.textOutputProject = newStrTxt;
+				
+				//convert orderedArray to string
+				//Loop through orderedArray
 				var newStr = "";
-				var newStr = $scope.projectColumnHeaders.join(",") + "\n";
-				for(var k=0, lenK = $scope.projectOrderedArray.length; k<lenK; k++) {
-					newStr = newStr + $scope.projectOrderedArray[k].join(",") + "\n";
+				newStr = $scope.projectColumnHeaders.join(",") + "%0A";
+				for(var l=0, lenL = orderedArray.length; l<lenL; l++) {
+					newStr = newStr + orderedArray[l].join(",") + "%0A";
 				}
 				$scope.csvOutputProject = newStr;
 			}
-			
-			
-			//doesn't work
-			//downloadNewCSV($scope.csvOutput);
-			function downloadNewCSV(newStr) {
-				//Convert to csv
-				var csvContent = "data:text/csv;charset=utf-8,";
-				csvContent += index < newStr; //index is not defined
-				var encodedUri = encodeURI(newStr); //csvContent
-				$window.open(encodedUri);
-				
-				/*
-				var encodedUri = encodeURI(csvContent);
-				var link = document.createElement("a");
-				link.setAttribute("href", encodedUri);
-				link.setAttribute("download", "my_data.csv");
 
-				link.click(); // This will download the data file named "my_data.csv".
-				
-				//you can use: $window.open(url, windowName, attributes);
-				*/
-			}
+		};
+		
+		$scope.save = function () {
+
+			var csvString = $scope.csvOutput;
+			var a         = document.createElement('a');
+			a.href        = 'data:attachment/csv,' + csvString;
+			a.target      = '_blank';
+			a.download    = 'myFile.csv';
+			
+			document.body.appendChild(a);
+			a.click();
 		};
 		
 		
