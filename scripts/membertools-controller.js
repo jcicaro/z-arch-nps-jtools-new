@@ -17,13 +17,15 @@
 		
 		$scope.jsonResult = {}; //not used yet
 		
-		$scope.portalColumnHeaders = ["First Name","Surname","Position","Division","Telephone (10 digits)","Fax","Mobile","Email","Username","TPS Instances Access","TimeZone"];
 		
 		$scope.csvInput = ""; //the input from csvContainer CM editor
 		$scope.csvConvertedArray; //each line in the csvInput as arrays
 		$scope.csvColumnHeaders = []; //array containing strings - column headers from the CSV
 		$scope.csvCompanyIndex; //shows which column of the CSV the company is
+		$scope.portalOrderedArray = [];
+		$scope.projectOrderedArray = [];
 		$scope.csvOutput = ""; //the main output string - need to convert to CSV
+		$scope.csvOutputProject = ""; //the main output string - need to convert to CSV
 
 		$scope.companies = []; //array of Companies from the CSV
 		$scope.compObjects = []; //array of Company Objects with suffix and ABN : //[{compName, compSuffix, compABN}]
@@ -33,8 +35,10 @@
 		//initialises the text inputs for the CSV section
 		//so none of them will be undefined
 		$scope.csvPortalHeaderInput = ["","","","","","","","","","",""]; 
-		//$scope.csvHeaderInput = ["","","","","","","","","","",""]; //same number as portal column headers
-		$scope.csvHeaderInput = $scope.csvPortalHeaderInput;
+		$scope.portalColumnHeaders = ["First Name","Surname","Position","Division","Telephone (10 digits)","Fax","Mobile","Email","Username","TPS Instances Access","TimeZone"];
+		$scope.projectColumnHeaders = ["Username","Company BRN","Position","Email","Fax","Mobile","Office","Street","City","ZIP/Postcode","State","Country","PO Box","To DistributionGroups","CC DistributionGroups","MemberGroups"];
+		$scope.csvProjectHeaderInput = ["","","","","","","","","","","","","","","",""];
+		$scope.csvHeaderInput = $scope.csvPortalHeaderInput; 
 		
 		
 		$scope.csvToPortalMapArray = []; //[{portalHeader, csvHeader, portalHeaderIndex, csvHeaderIndex}]
@@ -43,7 +47,11 @@
 		
 		//Test function only, test functions can be put here for testing and debugging
 		$scope.execute = function() {
-			alert("");
+			//alert("");
+			//arrayToProjectCSVString();
+			//alert(getCompanySuffixFromUsername('wendy.parker.thiess'));
+			//getCompanyABN = function(compSuffix) 
+			//alert(getCompanyABN(getCompanySuffixFromUsername('wendy.parker.thiess')));
 		};
 		
 		$scope.showPreProcessor = function() {
@@ -116,12 +124,34 @@
 			return suffix;
 		};
 		
-
+		//Helper: returns the ABN based on the Company suffix from the CSV
+		getCompanyABN = function(compSuffix) {
+			//alert($scope.compObjects);
+			var compABN = "";
+			for(var i=0, len=$scope.compObjects.length; i<len; i++) {
+				compABN = $scope.compObjects[i].compABN;
+				if($scope.compObjects[i].compSuffix == compSuffix) {
+					return compABN;
+				}
+			}
+			return compABN;
+		};
+		
+		//Helper: returns the suffix based on the username
+		getCompanySuffixFromUsername = function(username) {
+			//alert($scope.compObjects);
+			var unameArray = username.split(".");
+			var suffix = unameArray[2]; //[fname,lname,suffix]
+			return suffix;
+		};
+		
+		
+		//$scope.csvHeaderInput = [];
 		$scope.process = function() {
 			$scope.saveCompanies();
-			
+			//alert($scope.csvHeaderInput);
 		
-			createPortalMapArray();
+			createPortalMapArray(); //Uses: $scope.csvHeaderInput, $scope.portalColumnHeaders, $scope.csvColumnHeaders, $scope.csvToPortalMapArray
 			function createPortalMapArray() {
 				//process $scope.csvToPortalMapArray
 				for(var i=0, len=$scope.csvHeaderInput.length; i<len; i++) {
@@ -149,10 +179,12 @@
 						$scope.csvToPortalMapArray.push(csvToPortalMap);
 					}
 				}
+				//alert($scope.csvToPortalMapArray);
 			}
-		
-			arrayToCSVString();
-			function arrayToCSVString() {
+			
+			
+			arrayToPortalCSVString();
+			function arrayToPortalCSVString() {
 				//process arrays
 				//var energy = fruits.join();
 				//var energy = fruits.join(" and ");
@@ -193,7 +225,9 @@
 					orderedArray.push(newColArray);
 					newColArray = [];
 				}
-			
+				
+				$scope.portalOrderedArray = orderedArray;
+				//alert($scope.portalOrderedArray);
 			
 				//convert orderedArray to string
 				//Loop through orderedArray
@@ -205,6 +239,49 @@
 				$scope.csvOutput = newStr;
 			
 			}
+			
+			arrayToProjectCSVString();
+			function arrayToProjectCSVString() {
+				//alert($scope.projectColumnHeaders);
+				//Loop through $scope.portalOrderedArray
+				//assign newColArray = $scope.csvProjectHeaderInput
+				var newColArray = []; //$scope.csvProjectHeaderInput;
+				var orderedArray = [];
+				for(var i=0, len=$scope.portalOrderedArray.length; i<len; i++) {
+					//newColArray = $scope.portalOrderedArray[i];
+					//alert($scope.portalOrderedArray[i][8]);
+					//assign each column
+					newColArray.push($scope.portalOrderedArray[i][8]); //"username"
+					newColArray.push(getCompanyABN(getCompanySuffixFromUsername($scope.portalOrderedArray[i][8]))); //"Company BRN" //getCompanyABN(getCompanySuffixFromUsername('wendy.parker.thiess'))
+					newColArray.push($scope.portalOrderedArray[i][2]); //Position,
+					newColArray.push($scope.portalOrderedArray[i][7]); //Email,
+					newColArray.push($scope.portalOrderedArray[i][5]); //Fax,
+					newColArray.push($scope.portalOrderedArray[i][7]); //Mobile,
+					newColArray.push($scope.portalOrderedArray[i][5]); //Office,
+					newColArray.push(""); //Street,
+					newColArray.push(""); //City,
+					newColArray.push(""); //ZIP/Postcode,
+					newColArray.push(""); //State,
+					newColArray.push(""); //Country,
+					newColArray.push(""); //PO Box,
+					newColArray.push(""); //To DistributionGroups,
+					newColArray.push(""); //CC DistributionGroups,
+					newColArray.push(""); //MemberGroups
+					orderedArray.push(newColArray);
+				}
+				
+				
+				//Set $scope.projectOrderedArray
+				$scope.projectOrderedArray = orderedArray;
+				
+				var newStr = "";
+				var newStr = $scope.projectColumnHeaders.join(",") + "\n";
+				for(var k=0, lenK = $scope.projectOrderedArray.length; k<lenK; k++) {
+					newStr = newStr + $scope.projectOrderedArray[k].join(",") + "\n";
+				}
+				$scope.csvOutputProject = newStr;
+			}
+			
 			
 			//doesn't work
 			//downloadNewCSV($scope.csvOutput);
