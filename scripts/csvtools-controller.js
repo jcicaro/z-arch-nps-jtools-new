@@ -13,6 +13,7 @@
 		csvContainer.setSize("100%", "100%");
 		
 		$scope.csvInput = "";
+		$scope.csvOutput = "";
 		$scope.jsonResultArray = []; //converts csv to array of objects, each object correspond to a row
 		
 		$scope.csvConvertedArray = []; //each i is a string of comma delimited rows
@@ -55,12 +56,40 @@
 				
 				//Loop through each cell
 				for(var j=0, lenJ=cellArray.length; j<lenJ; j++) {
-					if($scope.csvColumnHeadersArray[j]!="" && cellArray[j]!="") {
+					//if($scope.csvColumnHeadersArray[j]!="" && cellArray[j]!="") {
 						obj[$scope.csvColumnHeadersArray[j]] = cellArray[j];
-					}
+					//}
 				}
 				$scope.jsonResultArray.push(obj);
 			}
+		};
+		
+		$scope.saveCSV = function () {
+			//alert();
+			$scope.jsonArrayToString();
+			
+			var csvString = $scope.csvOutput;
+			var a         = document.createElement('a');
+			a.href        = 'data:attachment/csv,' + csvString;
+			a.target      = '_blank';
+			a.download    = 'savedCSV.csv';
+			
+			document.body.appendChild(a);
+			a.click();
+		};
+		
+		//Helper : saveCSV
+		$scope.jsonArrayToString = function() {
+			alert($scope.jsonResultArray);
+			//Need to convert $scope.jsonResultArray Object to Array first
+			//generate CSV friendly string using "%0A"
+			var newStr = "";
+			//newStr = $scope.projectColumnHeaders.join(",") + "%0A";
+			for(var l=0, lenL = $scope.jsonResultArray.length; l<lenL; l++) {
+				newStr = newStr + $scope.jsonResultArray[l].join(",") + "%0A";
+			}
+			$scope.csvOutput = newStr;
+			//alert($scope.csvOutput);
 		};
 		
 		

@@ -20,6 +20,9 @@
 				<button id="retrieveInputCSV" type="button" class="btn btn-primary btn-lg" ng-click="retrieveInputCSV()">
 					Retrieve Input CSV
 				</button>
+				<button id="jsonArrayToString" type="button" class="btn btn-primary btn-lg" ng-click="jsonArrayToString()">
+					Save
+				</button>
 				<button id="clearAll" type="button" class="btn btn-primary btn-lg" ng-click="clearAll()">
 					Clear
 				</button>
@@ -27,6 +30,7 @@
 		</div>
 			
 	</div><!--/. panel panel-default-->
+	
 	
 	<div class="col-xs-12 col-md-12">
 		<div class="panel">
@@ -43,4 +47,16 @@
 			
 		</div><!--/. panel -->
 	</div>
+	
+	<table class="table table-striped">
+		<tr ng-repeat="jdataH in jsonResultArray | limitTo:1">
+			<th ng-repeat="(keyH, valueH) in jdataH">{{keyH}}</th>
+		</tr>
+		<tr ng-repeat="jdata in jsonResultArray">
+			
+			<td ng-repeat="(key, value) in jdata" editable-text="value">{{value}}</td>
+		</tr>
+	</table>
+	
+	
 </div>

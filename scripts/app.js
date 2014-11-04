@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('app', ['ui.router', 'controller', 'membertools-controller', 'csvtools-controller', 'factory', 'directive']);
+	var app = angular.module('app', ['ui.router', 'controller', 'membertools-controller', 'csvtools-controller', 'factory', 'directive', 'xeditable']);
 
 	/*
 	 * Route
@@ -29,5 +29,9 @@
 				/*controller: 'codemeCtrl'*/
 			})
 	}]);
+	
+	app.run(function(editableOptions) {
+	  	editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+	});
 	
 })();
