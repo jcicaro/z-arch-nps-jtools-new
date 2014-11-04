@@ -1,0 +1,46 @@
+<div class="default">
+	<div class="col-xs-12 col-md-12">
+		
+		<div class="jumbotron">
+			<h1>Paste CSV Here</h1>
+			<p>
+				Convert spreadsheet into a CSV, open it in a text editor, copy text, and then paste it here.
+			</p>
+			<p>
+				<form id="inputForm" action="">
+					<div class="form-group">
+						<textarea name="" id="csvContainer" rows="5"></textarea>
+					</div>
+				</form>
+			</p>
+			<p>
+				<button id="processCSV" type="button" class="btn btn-primary btn-lg" ng-click="processCSV()">
+					Start CSV Processing
+				</button>
+				<button id="retrieveInputCSV" type="button" class="btn btn-primary btn-lg" ng-click="retrieveInputCSV()">
+					Retrieve Input CSV
+				</button>
+				<button id="clearAll" type="button" class="btn btn-primary btn-lg" ng-click="clearAll()">
+					Clear
+				</button>
+			</p>
+		</div>
+			
+	</div><!--/. panel panel-default-->
+	
+	<div class="col-xs-12 col-md-12">
+		<div class="panel">
+			
+			<div class="panel-body">
+				<div class="page-header">
+				  	<h2>Results <small>The results</small></h2>
+				</div>
+				<textarea name="" id="csvOutputProject" rows="5" class="textwrapper">
+{{csvColumnHeadersArray}}
+{{jsonResultArray}}
+				</textarea>
+			</div><!--/. panel-body-->
+			
+		</div><!--/. panel -->
+	</div>
+</div>

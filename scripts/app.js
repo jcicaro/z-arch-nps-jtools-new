@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('app', ['ui.router', 'controller', 'membertools-controller', 'factory', 'directive']);
+	var app = angular.module('app', ['ui.router', 'controller', 'membertools-controller', 'csvtools-controller', 'factory', 'directive']);
 
 	/*
 	 * Route
@@ -17,6 +17,11 @@
 				url: '/membertools',
 				templateUrl: 'templates/membertools.html',
 				controller: 'memberToolsCtrl'
+			})
+			.state('csvtools', {
+				url: '/csvtools',
+				templateUrl: 'templates/csvtools.html',
+				controller: 'csvToolsCtrl'
 			})
 			.state('codeme', {
 				url: '/codeme',
