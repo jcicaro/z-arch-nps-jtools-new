@@ -28,6 +28,7 @@
 		
 		$scope.processCSV = function() {
 			//$scope.clearCM();
+			$scope.csvRowsArray = [];
 			$scope.parseColumnHeaders();
 			$scope.rowsToObjects();
 		};
@@ -107,6 +108,21 @@
 			//alert($scope.csvOutput);
 		};
 		
+		//Helper : saveCSV
+		$scope.showCurrentCSVInContainer = function() {
+			//alert($scope.jsonResultArray);
+			//Need to convert $scope.jsonResultArray Object to Array first
+			//generate CSV friendly string using "%0A"
+			var newStr = "";
+			newStr = $scope.csvColumnHeadersArray.join(",") + "\n";
+			for(var l=0, lenL = $scope.csvRowsArray.length; l<lenL; l++) {
+				newStr = newStr + $scope.csvRowsArray[l].join(",") + "\n";
+			}
+			$scope.csvOutput = newStr;
+			csvContainer.setValue($scope.csvOutput);
+			csvContainer.refresh();
+			//alert($scope.csvOutput);
+		};
 		
 	}]);
 })();
