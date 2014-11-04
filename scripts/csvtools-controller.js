@@ -41,9 +41,14 @@
 			csvContainer.setValue("");
 			csvContainer.refresh();
 			
-			$scope.jsonResultArray = [];
-			$scope.csvConvertedArray = [];
-			$scope.csvColumnHeadersArray = [];
+			$scope.csvInput = "";
+			$scope.csvOutput = "";
+			$scope.jsonResultArray = []; //converts csv to array of objects, each object correspond to a row
+			
+			
+			$scope.csvConvertedArray = []; //each i is a string of comma delimited rows
+			$scope.csvRowsArray = []; //each i is an array of comma delimited rows
+			$scope.csvColumnHeadersArray = []; //each i is a string of column header
 		};
 		
 		//Helper: processCSV - sets $scope.csvConvertedArray and $scope.csvColumnHeadersArray
