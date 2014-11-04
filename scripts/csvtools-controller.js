@@ -90,13 +90,13 @@
 		
 		//Helper : saveCSV
 		$scope.jsonArrayToString = function() {
-			alert($scope.jsonResultArray);
+			//alert($scope.jsonResultArray);
 			//Need to convert $scope.jsonResultArray Object to Array first
 			//generate CSV friendly string using "%0A"
 			var newStr = "";
-			//newStr = $scope.projectColumnHeaders.join(",") + "%0A";
-			for(var l=0, lenL = $scope.jsonResultArray.length; l<lenL; l++) {
-				newStr = newStr + $scope.jsonResultArray[l].join(",") + "%0A";
+			newStr = $scope.csvColumnHeadersArray.join(",") + "%0A";
+			for(var l=0, lenL = $scope.csvRowsArray.length; l<lenL; l++) {
+				newStr = newStr + $scope.csvRowsArray[l].join(",") + "%0A";
 			}
 			$scope.csvOutput = newStr;
 			//alert($scope.csvOutput);

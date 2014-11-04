@@ -20,7 +20,7 @@
 				<button id="retrieveInputCSV" type="button" class="btn btn-primary btn-lg" ng-click="retrieveInputCSV()">
 					Retrieve Input CSV
 				</button>
-				<button id="execute" type="button" class="btn btn-primary btn-lg" ng-click="executeButton()">
+				<button id="saveCSV" type="button" class="btn btn-primary btn-lg" ng-click="saveCSV()">
 					Save
 				</button>
 				<button id="clearAll" type="button" class="btn btn-primary btn-lg" ng-click="clearAll()">
@@ -31,7 +31,7 @@
 			
 	</div><!--/. panel panel-default-->
 	
-	
+	<!--
 	<div class="col-xs-12 col-md-12">
 		<div class="panel">
 			
@@ -44,17 +44,19 @@
 ::
 {{csvRowsArray}}
 				</textarea>
-			</div><!--/. panel-body-->
+			</div>
 			
-		</div><!--/. panel -->
+		</div>
 	</div>
-
+	-->
 	
 	<div class="col-xs-12 col-md-12">
+		<!--
 		<div class="input-group">
 		  	<span class="input-group-addon">Search Table:</span>
 		  	<input type="text" class="form-control" placeholder="Username" ng-model="searchText">
 		</div>
+		-->
 		<br>
 		<table class="table table-striped">
 			<tr>
@@ -62,7 +64,7 @@
 					{{jdataH}}
 				</th>
 			</tr>
-			<tr ng-repeat="jdata in csvRowsArray track by $index | filter:searchText">
+			<tr ng-repeat="jdata in csvRowsArray track by $index">
 
 					<td ng-repeat="(key, value) in jdata track by $index">
 						<span editable-text="csvRowsArray[$parent.$index][$index]">{{value}}</span>
