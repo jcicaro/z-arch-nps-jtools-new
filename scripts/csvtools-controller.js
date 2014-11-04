@@ -11,13 +11,20 @@
 			matchBrackets : true
 		}); //theme: 'twilight',
 		csvContainer.setSize("100%", "100%");
+	
 		
 		$scope.csvInput = "";
 		$scope.csvOutput = "";
 		$scope.jsonResultArray = []; //converts csv to array of objects, each object correspond to a row
 		
+		
 		$scope.csvConvertedArray = []; //each i is a string of comma delimited rows
+		$scope.csvRowsArray = []; //each i is an array of comma delimited rows
 		$scope.csvColumnHeadersArray = []; //each i is a string of column header
+		
+		$scope.executeButton = function() {
+			alert($scope.csvRowsArray[0]);
+		};
 		
 		$scope.processCSV = function() {
 			//$scope.clearCM();
@@ -57,10 +64,13 @@
 				//Loop through each cell
 				for(var j=0, lenJ=cellArray.length; j<lenJ; j++) {
 					//if($scope.csvColumnHeadersArray[j]!="" && cellArray[j]!="") {
+					if($scope.csvColumnHeadersArray[j]!="") {
+						cellArray[j] = cellArray[j].trim();
 						obj[$scope.csvColumnHeadersArray[j]] = cellArray[j];
-					//}
+					}
 				}
 				$scope.jsonResultArray.push(obj);
+				$scope.csvRowsArray.push(cellArray);
 			}
 		};
 		
