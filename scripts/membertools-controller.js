@@ -49,7 +49,7 @@
 		$scope.portalUsernameIndex = 8; //from the actual csv from the portal
 		$scope.portalTimezoneIndex = 10;
 		$scope.timezones = MTOOLSFUNCTIONS.timezones; //declare this membertools-controller.js
-		$scope.timezoneInput;
+		$scope.timezoneInput = $scope.timezones[47]; //47 is the Sydney Timezone
 		
 		$scope.showResults = false;
 		$scope.showTransformMap = false;
@@ -239,7 +239,7 @@
 					
 					//code to add the timezone goes here
 					if(!newColArray[$scope.portalTimezoneIndex]) {
-						newColArray[$scope.portalTimezoneIndex] = $scope.timezoneInput.id;
+						newColArray[$scope.portalTimezoneIndex] = MTOOLSFUNCTIONS.getTimezoneId($scope.timezoneInput);
 					}
 					
 					orderedArray.push(newColArray);

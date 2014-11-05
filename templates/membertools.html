@@ -46,10 +46,11 @@
 				<p>
 					<div class="input-group">
 						<span class="input-group-addon">Default TimeZone (if none provided)</span>
-						<input list="timezones" name="timezones" class="form-control" placeholder="Eg. 49" ng-model="timezoneInput">
-						<datalist id="timezones">
-						  	<option ng-repeat="timezone in timezones">{{timezone.id}} : {{timezone.description}}</option>
-						</datalist>
+						<select ng-model="timezoneInput"
+						        ng-options="timezone for timezone in timezones" 
+						        class="form-control">
+						        <option value="">-- choose timezone --</option>
+						</select>
 					</div>
 				</p>
 			</div><!--/.col-xs-12 col-md-6 -->
