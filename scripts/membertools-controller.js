@@ -54,13 +54,8 @@
 		$scope.showResults = false;
 		$scope.showTransformMap = false;
 		
-		//Test function only, test functions can be put here for testing and debugging
-		$scope.execute = function(compObject) {
-			//alert(getCompObjectFromSuffix('thiess').compName);
-			//alert(arg);
-			var csvText = CSVTOOLSFUNCTIONS.arraysToCSVText($scope.portalColumnHeaders, compObject.userArray);
-			CSVTOOLSFUNCTIONS.saveCSV(csvText, compObject.compName + '_bulkImportUser');
-		};
+		
+		
 		
 		$scope.showPreProcessor = function() {
 			$scope.setColumnHeaders();
@@ -307,6 +302,10 @@
 			CSVTOOLSFUNCTIONS.saveCSV($scope.csvOutputProject, 'project_bulkImportUser');
 		};
 		
+		$scope.saveCompanyCSV = function(compObject) {
+			var csvText = CSVTOOLSFUNCTIONS.arraysToCSVText($scope.portalColumnHeaders, compObject.userArray);
+			CSVTOOLSFUNCTIONS.saveCSV(csvText, compObject.compName + '_bulkImportUser');
+		};
 		
 		$scope.reloadRoute = function() {
 			$scope.csvInput = ""; //the input from csvContainer CM editor

@@ -1,7 +1,7 @@
 (function() {
 	var app = angular.module('csvtools-controller', []);
 	
-	app.controller('csvToolsCtrl', ['$scope', function($scope) {
+	app.controller('csvToolsCtrl', ['$scope', '$filter', function($scope, $filter) {
 		var csvContainer = CodeMirror.fromTextArea(document.getElementById("csvContainer"), {
 			lineNumbers : true,
 			mode : "text/javascript",
@@ -21,10 +21,23 @@
 		$scope.csvColumnHeadersArray = []; //each i is a string of column header
 
 		$scope.executeButton = function() {
-			var str = CSVTOOLSFUNCTIONS.arraysToCSVReadyString($scope.csvColumnHeadersArray, $scope.csvRowsArray);
+			//var str = CSVTOOLSFUNCTIONS.arraysToCSVReadyString($scope.csvColumnHeadersArray, $scope.csvRowsArray);
 			//CSVTOOLSFUNCTIONS.saveCSV(str);
+			alert("Test");
 			
 		};
+		
+		// mark user as deleted
+	    $scope.deleteUser = function(row) {
+	    	/*
+	        var filtered = $filter('filter')($scope.csvRowsArray)[row];
+	        if (filtered.length) {
+	            filtered[0].isDeleted = true;
+	            
+	        }
+	        */
+	       $scope.csvRowsArray.splice(row,1);
+	    };
 		
 		$scope.processCSV = function() {
 			$scope.csvRowsArray = []; //this is to clear the table when the button is clicked
