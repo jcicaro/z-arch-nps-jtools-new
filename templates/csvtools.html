@@ -17,9 +17,7 @@
 				<button id="processCSV" type="button" class="btn btn-primary btn-lg" ng-click="processCSV()">
 					Start CSV Processing
 				</button>
-				<button id="retrieveInputCSV" type="button" class="btn btn-primary btn-lg" ng-click="retrieveInputCSV()">
-					Retrieve Input CSV
-				</button>
+				
 				<button id="showCurrentCSVInContainer" type="button" class="btn btn-primary btn-lg" ng-click="showCurrentCSVInContainer()">
 					Show Current CSV
 				</button>
@@ -29,6 +27,11 @@
 				<button id="clearAll" type="button" class="btn btn-danger btn-lg" ng-click="clearAll()">
 					Clear
 				</button>
+				
+				<button id="executeButton" type="button" class="btn btn-primary btn-lg" ng-click="executeButton()">
+					Execute
+				</button>
+
 			</p>
 		</div>
 			
@@ -54,12 +57,12 @@
 	-->
 	
 	<div class="col-xs-12 col-md-12">
-		<!--
+		
 		<div class="input-group">
 		  	<span class="input-group-addon">Search Table:</span>
-		  	<input type="text" class="form-control" placeholder="Username" ng-model="searchText">
+		  	<input type="text" class="form-control" placeholder="Search..." ng-model="searchText">
 		</div>
-		-->
+		
 		<br>
 		<table class="table table-striped">
 			<tr>
@@ -67,7 +70,7 @@
 					{{jdataH}}
 				</th>
 			</tr>
-			<tr ng-repeat="jdata in csvRowsArray track by $index">
+			<tr ng-repeat="jdata in csvRowsArray | filter:searchText track by $index">
 
 					<td ng-repeat="(key, value) in jdata track by $index">
 						<span editable-text="csvRowsArray[$parent.$index][$index]">{{value}}</span>

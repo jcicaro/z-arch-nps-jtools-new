@@ -47,13 +47,19 @@
 		$scope.csvToPortalMapArray = []; //[{portalHeader, csvHeader, portalHeaderIndex, csvHeaderIndex}]
 		
 		$scope.portalUsernameIndex = 8; //from the actual csv from the portal
+		$scope.portalTimezoneIndex = 10;
+		$scope.timezones = MTOOLSFUNCTIONS.timezones; //declare this membertools-controller.js
+		$scope.timezoneInput;
 		
 		$scope.showResults = false;
 		$scope.showTransformMap = false;
 		
 		//Test function only, test functions can be put here for testing and debugging
-		$scope.execute = function() {
-			//alert("");
+		$scope.execute = function(compObject) {
+			//alert(getCompObjectFromSuffix('thiess').compName);
+			//alert(arg);
+			var csvText = CSVTOOLSFUNCTIONS.arraysToCSVText($scope.portalColumnHeaders, compObject.userArray);
+			CSVTOOLSFUNCTIONS.saveCSV(csvText, compObject.compName + '_bulkImportUser');
 		};
 		
 		$scope.showPreProcessor = function() {
@@ -107,6 +113,8 @@
 					obj.compABN = $scope.companyABNInput[i];
 				else 
 					obj.compABN = "";
+					
+				obj.userArray = [];
 				
 				$scope.compObjects.push(obj);
 				//[{compName, compSuffix, compABN}]
@@ -135,6 +143,18 @@
 				}
 			}
 			return compABN;
+		};
+		
+		//Helper:
+		getCompObjectFromSuffix = function(compSuffix) {
+			var comp = {};
+			for(var i=0, len=$scope.compObjects.length; i<len; i++) {
+				comp = $scope.compObjects[i];
+				if(comp.compSuffix == compSuffix) {
+					return comp;
+				}
+			}
+			return false;
 		};
 		
 		//Helper: returns the suffix based on the username
@@ -210,45 +230,43 @@
 					}
 
 					//Username //str.toLowerCase()
+					var compSuffix = getCompanySuffix(colArray[$scope.csvCompanyIndex]); 
 					if(!newColArray[$scope.portalUsernameIndex]) {
-						var username = newColArray[0] + "." + newColArray[1] + "." + getCompanySuffix(colArray[$scope.csvCompanyIndex]); //+company
-						newColArray[$scope.portalUsernameIndex] = username.toLowerCase().replace(/[^a-zA-Z0-9\.\-]/g,'');
+						var username = newColArray[0] + "." + newColArray[1] + "." + compSuffix; //+company
+						newColArray[$scope.portalUsernameIndex] = username.toLowerCase().replace(/[^a-zA-Z0-9\.]/g,'');
 					}
+					
+					
+					//code to add the timezone goes here
+					if(!newColArray[$scope.portalTimezoneIndex]) {
+						newColArray[$scope.portalTimezoneIndex] = $scope.timezoneInput.id;
+					}
+					
 					orderedArray.push(newColArray);
+					
+					//Need to add newColArray to $scope.compObjects
+					compObject = getCompObjectFromSuffix(compSuffix);
+					compObject.userArray.push(newColArray);
+					
 					newColArray = [];
+					compSuffix = "";
+					
+					//alert(compObject.userArray);
 				}
 				
 				$scope.portalOrderedArray = orderedArray;
-			
-				//convert orderedArray to string
-				//Loop through orderedArray
-				var newStrTxt = "";
-				newStrTxt = $scope.portalColumnHeaders.join(",") + "\n";
-				for(var k=0, lenK = orderedArray.length; k<lenK; k++) {
-					newStrTxt = newStrTxt + orderedArray[k].join(",") + "\n";
-				}
-				$scope.textOutput = newStrTxt;
-				
-				//generate CSV friendly string using "%0A"
-				var newStr = "";
-				newStr = $scope.portalColumnHeaders.join(",") + "%0A";
-				for(var l=0, lenL = orderedArray.length; l<lenL; l++) {
-					newStr = newStr + orderedArray[l].join(",") + "%0A";
-				}
-				$scope.csvOutput = newStr;
-			
+
+				$scope.textOutput = CSVTOOLSFUNCTIONS.arraysToCSVText($scope.portalColumnHeaders, $scope.portalOrderedArray);
+				$scope.csvOutput = $scope.textOutput;
 			}
 			
 			arrayToProjectCSVString();
 			function arrayToProjectCSVString() {
-				//alert($scope.projectColumnHeaders);
 				//Loop through $scope.portalOrderedArray
 				//assign newColArray = $scope.csvProjectHeaderInput
 				var newColArray = []; //$scope.csvProjectHeaderInput;
 				var orderedArray = [];
 				for(var i=0, len=$scope.portalOrderedArray.length; i<len; i++) {
-					//newColArray = $scope.portalOrderedArray[i];
-					//alert($scope.portalOrderedArray[i][8]);
 					//assign each column
 					newColArray.push($scope.portalOrderedArray[i][8]); //"username"
 					newColArray.push(getCompanyABN(getCompanySuffixFromUsername($scope.portalOrderedArray[i][8]))); //"Company BRN" //getCompanyABN(getCompanySuffixFromUsername('wendy.parker.thiess'))
@@ -273,50 +291,22 @@
 				
 				//Set $scope.projectOrderedArray
 				$scope.projectOrderedArray = orderedArray;
-				
-				//convert orderedArray to string
-				//Loop through orderedArray
-				var newStrTxt = "";
-				newStrTxt = $scope.projectColumnHeaders.join(",") + "\n";
-				for(var k=0, lenK = orderedArray.length; k<lenK; k++) {
-					newStrTxt = newStrTxt + orderedArray[k].join(",") + "\n";
-				}
-				$scope.textOutputProject = newStrTxt;
-				
-				//generate CSV friendly string using "%0A"
-				var newStr = "";
-				newStr = $scope.projectColumnHeaders.join(",") + "%0A";
-				for(var l=0, lenL = orderedArray.length; l<lenL; l++) {
-					newStr = newStr + orderedArray[l].join(",") + "%0A";
-				}
-				$scope.csvOutputProject = newStr;
+
+				$scope.textOutputProject = CSVTOOLSFUNCTIONS.arraysToCSVText($scope.projectColumnHeaders, $scope.projectOrderedArray);
+				$scope.csvOutputProject = $scope.textOutputProject;
+
 			}
 
 		};
 		
 		$scope.savePortalCSV = function () {
-
-			var csvString = $scope.csvOutput;
-			var a         = document.createElement('a');
-			a.href        = 'data:attachment/csv,' + csvString;
-			a.target      = '_blank';
-			a.download    = 'portal_bulkImportUser.csv';
-			
-			document.body.appendChild(a);
-			a.click();
+			CSVTOOLSFUNCTIONS.saveCSV($scope.csvOutput, 'portal_bulkImportUser');
 		};
 		
 		$scope.saveProjectCSV = function () {
-
-			var csvString = $scope.csvOutputProject;
-			var a         = document.createElement('a');
-			a.href        = 'data:attachment/csv,' + csvString;
-			a.target      = '_blank';
-			a.download    = 'project_bulkImportUser.csv';
-			
-			document.body.appendChild(a);
-			a.click();
+			CSVTOOLSFUNCTIONS.saveCSV($scope.csvOutputProject, 'project_bulkImportUser');
 		};
+		
 		
 		$scope.reloadRoute = function() {
 			$scope.csvInput = ""; //the input from csvContainer CM editor
@@ -351,6 +341,7 @@
 		    return function(){ return this.filter(a) }
 		}(function(a,b,c){ return c.indexOf(a,b+1) < 0 });
 		
+		//added to csvtools-functions
 		function findIndex(arr, txt) {
 			var found = false;
 			for (i = 0; i < arr.length && !found; i++) {
@@ -362,6 +353,7 @@
 		}
 		
 		//objs.sort(compare);
+		//added to csvtools-functions
 		function compare(a,b) {
 		  if (a.last_nom < b.last_nom)
 			 return -1;
