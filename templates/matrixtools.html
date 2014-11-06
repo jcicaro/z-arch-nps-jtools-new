@@ -1,0 +1,59 @@
+<div class="default">
+	<div class="col-xs-12 col-md-12">
+		<div class="jumbotron">
+			<h1>Paste CSV Here</h1>
+			<p>
+				Convert spreadsheet into a CSV, open it in a text editor, copy text, and then paste it here.
+			</p>
+			<p>
+				<form id="inputForm" action="">
+					<div class="form-group">
+						<textarea name="" id="csvContainer" rows="5"></textarea>
+					</div>
+				</form>
+				
+				<textarea name="" rows="5">{{csvOutput}}</textarea>
+			</p>
+			<p>
+				<!--
+				<button id="processCSV" type="button" class="btn btn-primary btn-lg" ng-click="processCSV()">
+					Start CSV Processing
+				</button>
+				
+				<button id="showCurrentCSVInContainer" type="button" class="btn btn-primary btn-lg" ng-click="showCurrentCSVInContainer()">
+					Show Current CSV
+				</button>
+				<button id="saveCSV" type="button" class="btn btn-success btn-lg" ng-click="saveCSV()">
+					Save
+				</button>
+				<button id="clearAll" type="button" class="btn btn-danger btn-lg" ng-click="clearAll()">
+					Clear
+				</button>
+				-->
+				
+                <button id="createPropertyArray" type="button" class="btn btn-primary btn-lg" ng-click="createPropertyArray()">
+					Create Property Array
+				</button>
+				<button id="initialiseMatrix" type="button" class="btn btn-primary btn-lg" ng-click="initialiseMatrix()">
+					Initialise Matrix
+				</button>
+                <button id="executeButton" type="button" class="btn btn-primary btn-lg" ng-click="executeButton()">
+					Execute
+				</button>
+			</p>
+		</div>
+	
+	</div>
+	<!--
+	<table class="table table-striped">
+		<tr ng-repeat="jdataH in jsonResultArray | limitTo:1">
+			<th ng-repeat="(keyH, valueH) in jdataH">{{keyH}}</th>
+		</tr>
+		<tr ng-repeat="jdata in jsonResultArray">
+			
+			<td ng-repeat="(key, value) in jdata" editable-text="value">{{value}}</td>
+		</tr>
+	</table>
+	-->
+	
+</div>

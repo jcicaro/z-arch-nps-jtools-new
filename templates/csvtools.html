@@ -64,6 +64,7 @@
 		  	<input type="text" class="form-control" placeholder="Search..." ng-model="searchText">
 		</div>
 		-->
+        
 		<br>
 		<table class="table table-striped">
 			
@@ -72,8 +73,8 @@
 					{{jdataH}}
 				</th>
 			</tr>
-			<tr ng-repeat="(jkey, jdata) in csvRowsArray  track by $index">
-					<td ng-repeat="(key, value) in csvRowsArray[jkey] | filter:searchText track by $index">
+			<tr ng-repeat="(jkey, jdata) in csvRowsArray | filter:searchText track by $index">
+					<td ng-repeat="(key, value) in csvRowsArray[jkey] track by $index">
 						
 						<span editable-text="csvRowsArray[jkey][key]">{{value}}</span>
 						
@@ -82,7 +83,7 @@
 						<input type="text" editable-text="csvRowsArray[$parent.$index][$index]" ng-model="value" ng-if="!value">
 						-->
 					</td>
-					<td><button type="button"  class="btn btn-danger" ng-click="deleteUser(jkey)">Del</button></td>
+					<td><button type="button"  class="btn btn-danger pull-right" ng-click="deleteUser(jkey)">Del</button></td>
 			</tr>
 		</table>
 		

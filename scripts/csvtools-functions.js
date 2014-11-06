@@ -1,4 +1,4 @@
-var CSVTOOLSFUNCTIONS = (function() {
+var CSVTOOLSFUNCTIONS = (function () {
 	return {
 		//Initiates file download of CSV. 
 		//String needs to be properly formatted with "%0A" for each new line
@@ -12,30 +12,16 @@ var CSVTOOLSFUNCTIONS = (function() {
 			a.click();
 		},
 		
-		//Returns a downloadable CSV ready string converted from headerArray and rowArray
-		arraysToCSVReadyString: function(headerArray, rowArray) {
+		//UNUSED - Returns a downloadable CSV ready string converted from headerArray and rowArray
+		arraysToCSVReadyString: function (headerArray, rowArray) {
 			
 			//Use "%0A" for each new line 
 			var newStr = "";
 			newStr = headerArray.join(",") + "%0A";
-			for(var l=0, lenL = rowArray.length; l<lenL; l++) {
+			for (var l=0, lenL = rowArray.length; l<lenL; l++) {
 				newStr = newStr + rowArray[l].join(",") + "%0A"; //converts rowArray to string
 			}
 			return newStr;
-			
-			
-			/*
-			//Same as above - removes spaces in cells
-			var headerString = headerArray.join(",");
-			var rowStrArray = []; //each rowArray[l] will be converted to string and pushed here
-			for(var l=0, lenL = rowArray.length; l<lenL; l++) {
-				var rowString = rowArray[l].join(","); // convert rowArray[l] to string
-				rowStrArray.push(rowString); //push it to rowStrArray
-			}
-			rowStrArray.unshift(headerString);
-			var newStr = rowStrArray.join("%0A");
-			return newStr;
-			*/
 		},
 		
 		//Returns a CSV copy/paste ready string converted from headerArray and rowArray
@@ -67,6 +53,58 @@ var CSVTOOLSFUNCTIONS = (function() {
 				    found = true;
 					return i;
 			    }
+			}
+		},
+        
+        createPropertyArray: function(inp, delim) {
+			
+			var linesArray = inp.split('\n');
+			var propArray = [];
+			
+			for (var i=0, len=linesArray.length; i<len; i++) {
+                if (linesArray[i]) {
+                    var delimIndex = linesArray[i].indexOf(delim);
+                    var prop = {};
+                    prop.propId = linesArray[i].substr(0, delimIndex).trim();
+                    prop.propValue = linesArray[i].substr(delimIndex + 1).trim();
+                    propArray.push(prop);
+                }
+			}
+			
+			return propArray;
+		},
+
+        replaceIdsWithValues: function(propInfoArray, txt){
+			if (propInfoArray.length > 0) {
+                var newTxt = txt;
+				for (var i=0, len=propInfoArray.length; i<len; i++) { //loop through each propInfoArray object
+                    var pId = propInfoArray[i].propId;
+					var rePId = new RegExp(pId, 'g');
+					if(newTxt.match(rePId)) {
+						newTxt = newTxt.replace(rePId, propInfoArray[i].propValue);
+					}
+				}
+                return newTxt;
+			}
+			else {
+				return false;
+			}
+		},
+        
+        replaceValuesWithIds: function(propInfoArray, txt){
+			if (propInfoArray.length > 0) {
+                var newTxt = txt;
+				for (var i=0, len=propInfoArray.length; i<len; i++) { //loop through each propInfoArray object
+                    var pValue = propInfoArray[i].propValue;
+					var rePValue = new RegExp(pValue, 'g');
+					if(newTxt.match(rePValue)) {
+						newTxt = newTxt.replace(rePValue, propInfoArray[i].propId);
+					}
+				}
+                return newTxt;
+			}
+			else {
+				return false;
 			}
 		}
 	};

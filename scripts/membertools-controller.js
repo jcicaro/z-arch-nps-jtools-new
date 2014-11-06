@@ -117,7 +117,7 @@
 		};
 		
 		//Helper: returns the suffix based on the Company name from the CSV
-		getCompanySuffix = function(compName) {
+		var getCompanySuffix = function(compName) {
 			var suffix = "";
 			for(var i=0, len=$scope.compObjects.length; i<len; i++) {
 				suffix = $scope.compObjects[i].compSuffix;
@@ -129,7 +129,7 @@
 		};
 		
 		//Helper: returns the ABN based on the Company suffix from the CSV
-		getCompanyABN = function(compSuffix) {
+		var getCompanyABN = function(compSuffix) {
 			var compABN = "";
 			for(var i=0, len=$scope.compObjects.length; i<len; i++) {
 				compABN = $scope.compObjects[i].compABN;
@@ -141,7 +141,7 @@
 		};
 		
 		//Helper:
-		getCompObjectFromSuffix = function(compSuffix) {
+		var getCompObjectFromSuffix = function(compSuffix) {
 			var comp = {};
 			for(var i=0, len=$scope.compObjects.length; i<len; i++) {
 				comp = $scope.compObjects[i];
@@ -153,7 +153,7 @@
 		};
 		
 		//Helper: returns the suffix based on the username
-		getCompanySuffixFromUsername = function(username) {
+		var getCompanySuffixFromUsername = function(username) {
 			var unameArray = username.split(".");
 			var suffix = unameArray[2]; //[fname,lname,suffix]
 			return suffix;

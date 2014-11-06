@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('app', ['ui.router', 'controller', 'membertools-controller', 'csvtools-controller', 'factory', 'directive', 'xeditable']);
+	var app = angular.module('app', ['ui.router', 'controller', 'membertools-controller', 'csvtools-controller', 'matrixtools-controller', 'factory', 'directive', 'xeditable']);
 
 	/*
 	 * Route
@@ -23,6 +23,13 @@
 				templateUrl: 'templates/csvtools.html',
 				controller: 'csvToolsCtrl'
 			})
+			
+			.state('matrixtools', {
+				url: '/matrixtools',
+				templateUrl: 'templates/matrixtools.html',
+				controller: 'matrixToolsCtrl'
+			})
+			
 			.state('codeme', {
 				url: '/codeme',
 				templateUrl: 'templates/codeme.html'
