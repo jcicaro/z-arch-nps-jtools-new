@@ -18,6 +18,8 @@
 		$scope.transformMappingVisibility = false;
 		$scope.memberResultsVisibility = false;
 		$scope.tableVisibility = true;
+        
+        $scope.active;
 		
         $scope.processMemberCSV = function() {
 			$scope.processMemberTools();
@@ -35,12 +37,16 @@
 			alert("Test");
 		};
         
-        $scope.showInContainer = function (array, header) {
+        $scope.showInContainer = function (object, array, header) {
             var text = TABLEHELPERS.arraysToCSVText(array, header);
             csvContainer.setValue(text);
+            csvContainer.refresh();
+            
+            $scope.active = object;
         };
 		
 		$scope.reset = function() {
+            csvContainer.setValue("");
 			$scope.editorVisibility = true;
 			$scope.transformMappingVisibility = false;
 			$scope.memberResultsVisibility = false;
@@ -141,6 +147,7 @@
 		$scope.generateCSVReadyText = function () {
 			$scope.transformMappingVisibility = false;
 			$scope.memberResultsVisibility = true;
+            $scope.editorVisibility = true;
 		
 			var inp = $scope.mToolsInput;
 			var out = $scope.mToolsOutput;
@@ -289,6 +296,12 @@
 
 				out.projectTextOutput = TABLEHELPERS.arraysToCSVText(out.projectOrderedArray, mHead.projectColumnHeaders);
 			}
+            
+            
+            //$scope.showInContainer($scope.mToolsOutput.portalOrderedArray, $scope.memberHeaders.portalColumnHeaders);
+            
+
+            
 			
 		};
 
@@ -360,6 +373,8 @@
 			}
 			return false;
 		}
+        
+        
         
     }]);
 })();

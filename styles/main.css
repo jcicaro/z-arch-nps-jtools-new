@@ -17,4 +17,8 @@ textarea {
     padding:3px;
 }
 
+input.editable-text {
+    width: 75px;
+}
+
 
