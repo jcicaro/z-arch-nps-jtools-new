@@ -1,40 +1,88 @@
 <div class="default">
 	<div class="col-xs-12 col-md-12">
+        <div ng-show="memberResultsVisibility">
+            <ul class="nav nav-tabs navbar-right" role="tablist">
+                <li role="presentation">
+                    <a class="dropdown-toggle" href="" 
+                       ng-click="showInContainer(mToolsOutput.portalOrderedArray, memberHeaders.portalColumnHeaders)">
+                        Portal CSV
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a class="dropdown-toggle" href="" ng-click="showInContainer(mToolsOutput.projectOrderedArray, memberHeaders.projectColumnHeaders)">
+                        Project CSV
+                    </a>
+                </li>
+                
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                        Separate Companies <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-repeat="company in mToolsInput.compObjects"><a href=""  ng-click="showInContainer(company.userArray, memberHeaders.portalColumnHeaders)">{{company.compName}}</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
         
         
         
-		<div class="jumbotron" ng-show="editorVisibility">
-			<h1>Paste CSV Here</h1>
-			<p>
-				Convert spreadsheet into a CSV, open it in a text editor, copy text, and then paste it here.
-			</p>
+		<div class="jumbotron" ng-show="editorVisibility || memberResultsVisibility">
+            
+            <div ng-hide="memberResultsVisibility">
+                <h1>Paste CSV Here</h1>
+                <p>
+                    Convert spreadsheet into a CSV, paste it or drag-and-drop below.
+                </p>
+            </div>
+            
+            
+            
 			<p>
 				<form id="inputForm" action="">
 					<div class="form-group">
 						<textarea name="" id="csvContainer" rows="5"></textarea>
 					</div>
 				</form>
-				
+				<!--
 				<textarea name="" rows="5">{{csvOutput}}</textarea>
-			</p>
-			<p>
-                <!--
-                <button id="createPropertyArray" type="button" class="btn btn-primary btn-lg" ng-click="createPropertyArray()">
-					Create Property Array
-				</button>
                 -->
+			</p>
+        
+			<div ng-hide="memberResultsVisibility">
                 <button id="processMemberCSV" type="button" class="btn btn-primary btn-lg" ng-click="processMemberCSV()">
-					Member CSV
+					Generate Member CSV
 				</button>
-                <!--
-				<button id="toEditor" type="button" class="btn btn-primary btn-lg" ng-click="toEditor()">
-					Show in Editor
-				</button>
-                <button id="test" type="button" class="btn btn-primary btn-lg" ng-click="test()">
-					Test
-				</button>
-                -->
-			</p>
+			</div>
+            
+            <div ng-show="memberResultsVisibility">
+                <div class="panel-body" >
+                    <div class="btn-group">
+                        <button id="savePortalCSV" type="button" class="btn btn-primary btn-lg" ng-click="savePortalCSV()">
+                                    <strong>Portal</strong> CSV (All Companies)
+                        </button>
+
+                        <button id="saveProjectCSV" type="button" class="btn btn-primary btn-lg" ng-click="saveProjectCSV()">
+                                    <strong>Project</strong> CSV
+                        </button>
+                        <button type="button" class="btn btn-danger btn-lg" ng-click="reset()">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="btn-group">
+
+                        <button type="button" class="btn btn-default btn-sm" ng-repeat="company in mToolsInput.compObjects" ng-click="saveCompanyCSV(company)">
+                            {{company.compName}} Portal CSV
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+    
+    
 		</div>
     
     
@@ -106,30 +154,7 @@
 
 
         
-        <div class="panel-body" ng-show="memberResultsVisibility">
-			<div class="btn-group">
-				<button id="savePortalCSV" type="button" class="btn btn-primary btn-lg" ng-click="savePortalCSV()">
-							<strong>Portal</strong> CSV (All Companies)
-				</button>
-				
-				<button id="saveProjectCSV" type="button" class="btn btn-primary btn-lg" ng-click="saveProjectCSV()">
-							<strong>Project</strong> CSV
-				</button>
-                <button type="button" class="btn btn-danger btn-lg" ng-click="reset()">
-                    Reset
-                </button>
-			</div>
-		</div>
-		
-		<div class="panel-body">
-			<div class="btn-group">
-				
-				<button type="button" class="btn btn-default btn-sm" ng-repeat="company in mToolsInput.compObjects" ng-click="saveCompanyCSV(company)">
-					{{company.compName}} Portal CSV
-				</button>
-
-			</div>
-		</div>
+        
 
 
 

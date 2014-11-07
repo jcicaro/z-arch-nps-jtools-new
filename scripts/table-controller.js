@@ -32,8 +32,13 @@
 		};
 		
 		$scope.test = function () {
-			alert(getCompObjectFromEmail("pchristopher@thiess.com.au"));
+			alert("Test");
 		};
+        
+        $scope.showInContainer = function (array, header) {
+            var text = TABLEHELPERS.arraysToCSVText(array, header);
+            csvContainer.setValue(text);
+        };
 		
 		$scope.reset = function() {
 			$scope.editorVisibility = true;
