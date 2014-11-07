@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('app', ['ui.router', 'controller', 'membertools-controller', 'csvtools-controller', 'matrixtools-controller', 'factory', 'directive', 'xeditable']);
+	var app = angular.module('app', ['ui.router', 'controller', 'membertools-controller', 'csvtools-controller', 'matrixtools-controller', 'table-controller', 'factory', 'directive', 'xeditable']);
 
 	/*
 	 * Route
@@ -29,7 +29,11 @@
 				templateUrl: 'templates/matrixtools.html',
 				controller: 'matrixToolsCtrl'
 			})
-			
+			.state('tables', {
+				url: '/tables',
+				templateUrl: 'templates/tables.html',
+				controller: 'tableCtrl'
+			})
 			.state('codeme', {
 				url: '/codeme',
 				templateUrl: 'templates/codeme.html'
@@ -40,5 +44,13 @@
 	app.run(function(editableOptions) {
 	  	editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 	});
+    
+    /*
+    New module:
+    1. link to index.html [helper, controller]
+    2. app.js dependencies [ctrl]
+    3. app.js state [html url, ctrl]
+    4. update nav.html with state
+    */
 	
 })();

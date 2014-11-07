@@ -1,5 +1,41 @@
-var CSVTOOLSFUNCTIONS = (function () {
+var TABLEHELPERS = (function () {
 	return {
+        /*
+        ========================================================================================
+        Process INPUT
+        ========================================================================================
+        */
+        
+        //Returns a string as an array of lines
+        stringToLineArray: function (inputString) {
+            var arr = inputString.split('\n');
+            return arr;
+        },
+        
+        //Returns an array of columns, input is an array of lines 
+        columnToArray: function (linesArray, columnIndex) {
+            var colArray = [];
+            for (var i=0, len=linesArray.length; i<len; i++) {
+                var arr = linesArray[i].split(',');
+                colArray.push(arr[columnIndex]);
+            }
+            return colArray;
+        },
+        
+        //Returns headers as a string array from a string input (from CodeMirror) 
+        getHeadersArray: function (inputString) {
+            var arr = inputString.split('\n');
+            var headersArray = arr[0].split(',');
+            return headersArray;
+        },
+        
+        
+        /*
+        ========================================================================================
+        Creating CSV OUTPUT
+        ========================================================================================
+        */
+        
 		//Initiates file download of CSV. 
 		//String needs to be properly formatted with "%0A" for each new line
 		saveCSV: function (csvString, filename) {
@@ -13,7 +49,7 @@ var CSVTOOLSFUNCTIONS = (function () {
 		},
 		
 		//UNUSED - Returns a downloadable CSV ready string converted from headerArray and rowArray
-		arraysToCSVReadyString: function (headerArray, rowArray) {
+		arraysToCSVReadyString: function (rowArray, headerArray) {
 			
 			//Use "%0A" for each new line 
 			var newStr = "";
@@ -25,7 +61,7 @@ var CSVTOOLSFUNCTIONS = (function () {
 		},
 		
 		//Returns a CSV copy/paste ready string converted from headerArray and rowArray
-		arraysToCSVText: function(headerArray, rowArray) {
+		arraysToCSVText: function(rowArray, headerArray) {
 			//Use "\n" for each new line 
 			var newStr = "";
 			newStr = headerArray.join(",") + "\n";
@@ -35,8 +71,14 @@ var CSVTOOLSFUNCTIONS = (function () {
 			return newStr;
 		},
 		
-		
-		//objs.sort(compare);
+
+        /*
+        ========================================================================================
+        Property Array
+        ========================================================================================
+        */
+        
+        //objs.sort(compare);
 		compare: function (a,b) {
 		    if (a.last_nom < b.last_nom)
 			   return -1;
@@ -82,7 +124,8 @@ var CSVTOOLSFUNCTIONS = (function () {
 			
 			return propArray;
 		},
-
+        
+        
         replaceIdsWithValues: function(propInfoArray, txt){
 			if (propInfoArray.length > 0) {
                 var newTxt = txt;

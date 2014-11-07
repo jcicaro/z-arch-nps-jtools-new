@@ -19,7 +19,7 @@
 		
 		
 		$scope.csvInput = ""; //the input from csvContainer CM editor
-		$scope.csvConvertedArray; //each line in the csvInput as arrays
+		$scope.csvConvertedArray; //each line in the csvInput as arrays (array of strings)
 		$scope.csvColumnHeaders = []; //array containing strings - column headers from the CSV
 		$scope.csvCompanyIndex; //shows which column of the CSV the company is
 		$scope.portalOrderedArray = [];

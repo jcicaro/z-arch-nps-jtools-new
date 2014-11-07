@@ -1,0 +1,140 @@
+<div class="default">
+	<div class="col-xs-12 col-md-12">
+        
+        
+        
+		<div class="jumbotron" ng-show="editorVisibility">
+			<h1>Paste CSV Here</h1>
+			<p>
+				Convert spreadsheet into a CSV, open it in a text editor, copy text, and then paste it here.
+			</p>
+			<p>
+				<form id="inputForm" action="">
+					<div class="form-group">
+						<textarea name="" id="csvContainer" rows="5"></textarea>
+					</div>
+				</form>
+				
+				<textarea name="" rows="5">{{csvOutput}}</textarea>
+			</p>
+			<p>
+                <!--
+                <button id="createPropertyArray" type="button" class="btn btn-primary btn-lg" ng-click="createPropertyArray()">
+					Create Property Array
+				</button>
+                -->
+                <button id="processMemberCSV" type="button" class="btn btn-primary btn-lg" ng-click="processMemberCSV()">
+					Member CSV
+				</button>
+                <!--
+				<button id="toEditor" type="button" class="btn btn-primary btn-lg" ng-click="toEditor()">
+					Show in Editor
+				</button>
+                <button id="test" type="button" class="btn btn-primary btn-lg" ng-click="test()">
+					Test
+				</button>
+                -->
+			</p>
+		</div>
+    
+    
+    
+        <div class="panel" ng-show="transformMappingVisibility">
+            <div class="panel-body">
+                <div class="page-header">
+                    <h2>Transform Mapping <small>Map your CSV columns against the standard Keystone Portal CSV </small></h2>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <h4>CSV Columns</h4>
+                    <div class="input-group" ng-repeat="portalHeader in memberHeaders.portalColumnHeaders">
+
+                        <span class="input-group-addon">{{portalHeader}}</span>
+                        <!-- <input type="text" class="form-control" placeholder="Column Name"> -->
+                        <input list="csvColumnHeaders" name="csvColumnHeaders" class="form-control" placeholder="CSV Header" ng-model="memberHeaders.csvPortalHeaderInput[$index]">
+                        <datalist id="csvColumnHeaders">
+                            <option ng-repeat="columnHeader in mToolsInput.headersArray">{{columnHeader}}</option>
+                        </datalist>
+                    </div>
+
+                    <p>
+                        <div class="input-group">
+                            <span class="input-group-addon">Default TimeZone (if none provided)</span>
+                            <select ng-model="timezone.timezoneInput"
+                                    ng-options="timezone for timezone in timezone.timezones" 
+                                    class="form-control">
+                                    <option value="">-- choose timezone --</option>
+                            </select>
+                        </div>
+                    </p>
+                </div><!--/.col-xs-12 col-md-6 -->
+                <div class="col-xs-12 col-md-6">
+                    <h4>Company Information</h4>
+                    <div class="input-group" ng-repeat="company in mToolsInput.companies track by $index">
+
+                        <span class="input-group-addon">{{company}}</span>
+                        <input type="text" class="form-control" placeholder="Username Suffix" ng-model="mToolsInput.companyShortCodeInput[$index]">
+                        <input type="text" class="form-control" placeholder="ABN" ng-model="mToolsInput.companyABNInput[$index]">
+                    </div>
+
+
+
+
+                    <div class="page-header">
+                        <h4>Columns From Uploaded CSV</h4>
+                    </div>
+                    <div class="panel-body">
+                        <span>:</span>
+                        <span ng-repeat="columnHeader in mToolsInput.headersArray"> : {{columnHeader}} : </span>
+                        <span>:</span>
+                    </div>
+
+                </div><!--/.col-xs-12 col-md-6 -->
+                <div class="col-xs-12 col-md-12">
+                    <div class="panel-body">
+                        <div class="btn-group">
+                            <button id="generateCSVReadyText" type="button" class="btn btn-primary btn-lg" ng-click="generateCSVReadyText()">
+                                Generate CSV-ready Text
+                            </button>
+                            <button type="button" class="btn btn-danger btn-lg" ng-click="reset()">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </div><!--/.col-xs-12 col-md-6 -->
+            </div><!--/. panel-body-->
+        </div><!--/. panel -->
+
+
+        
+        <div class="panel-body" ng-show="memberResultsVisibility">
+			<div class="btn-group">
+				<button id="savePortalCSV" type="button" class="btn btn-primary btn-lg" ng-click="savePortalCSV()">
+							<strong>Portal</strong> CSV (All Companies)
+				</button>
+				
+				<button id="saveProjectCSV" type="button" class="btn btn-primary btn-lg" ng-click="saveProjectCSV()">
+							<strong>Project</strong> CSV
+				</button>
+                <button type="button" class="btn btn-danger btn-lg" ng-click="reset()">
+                    Reset
+                </button>
+			</div>
+		</div>
+		
+		<div class="panel-body">
+			<div class="btn-group">
+				
+				<button type="button" class="btn btn-default btn-sm" ng-repeat="company in mToolsInput.compObjects" ng-click="saveCompanyCSV(company)">
+					{{company.compName}} Portal CSV
+				</button>
+
+			</div>
+		</div>
+
+
+
+
+	
+	</div>
+	
+</div>
