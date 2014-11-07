@@ -23,8 +23,7 @@
 		$scope.executeButton = function() {
 			//var str = CSVTOOLSFUNCTIONS.arraysToCSVReadyString($scope.csvColumnHeadersArray, $scope.csvRowsArray);
 			//CSVTOOLSFUNCTIONS.saveCSV(str);
-			alert("Test");
-			
+			alert(localStorage.currentText);
 		};
 		
 		// mark user as deleted

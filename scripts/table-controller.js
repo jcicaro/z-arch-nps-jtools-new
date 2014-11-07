@@ -2,7 +2,8 @@
     var app = angular.module('table-controller', []);
     
     app.controller('tableCtrl', ['$scope', function($scope) {
-        var csvContainer = CodeMirror.fromTextArea(document.getElementById("csvContainer"), {
+        
+        csvContainer = CodeMirror.fromTextArea(document.getElementById("csvContainer"), {
 			lineNumbers : true,
 			mode : "text/javascript",
 			lineWrapping : true,
@@ -10,7 +11,7 @@
 			theme: 'twilight',
 			matchBrackets : true
 		}); //theme: 'twilight',
-		csvContainer.setSize("100%", "100%");
+		csvContainer.setSize("100%", "100%"); 
         
         $scope.csvOutput; //probably not necessary
 		
@@ -37,12 +38,13 @@
 			alert("Test");
 		};
         
-        $scope.showInContainer = function (object, array, header) {
+        $scope.showInContainer = function (obj, array, header) {
             var text = TABLEHELPERS.arraysToCSVText(array, header);
             csvContainer.setValue(text);
             csvContainer.refresh();
             
-            $scope.active = object;
+            localStorage.currentText = text;
+            $scope.active = obj;
         };
 		
 		$scope.reset = function() {

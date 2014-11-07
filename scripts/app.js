@@ -45,6 +45,7 @@
 	  	editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 	});
     
+    
     /*
     New module:
     1. link to index.html [helper, controller]

@@ -3,17 +3,16 @@
 	<div class="col-xs-12 col-md-12">
         
         
-        <div ng-show="memberResultsVisibility">
-            
+        <div id="member-results-header" ng-show="memberResultsVisibility">         
             <div>
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation">
+                    <li role="presentation" ng-class="{active: active === mToolsOutput.portalOrderedArray}">
                         <a class="dropdown-toggle" href="" 
                            ng-click="showInContainer(mToolsOutput.portalOrderedArray, mToolsOutput.portalOrderedArray, memberHeaders.portalColumnHeaders)">
                             Portal
                         </a>
                     </li>
-                    <li role="presentation">
+                    <li role="presentation" ng-class="{active: active === mToolsOutput.projectOrderedArray}">
                         <a class="dropdown-toggle" href="" ng-click="showInContainer(mToolsOutput.projectOrderedArray, mToolsOutput.projectOrderedArray, memberHeaders.projectColumnHeaders)">
                             Project
                         </a>
@@ -24,62 +23,19 @@
                             Individual Companies <small>(Portal)</small> <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li ng-repeat="company in mToolsInput.compObjects"><a href=""  ng-click="showInContainer(company, company.userArray, memberHeaders.portalColumnHeaders)">{{company.compName}}</a></li>
+                            <li ng-repeat="company in mToolsInput.compObjects">
+                                <a href=""  
+                                   ng-click="showInContainer(company, company.userArray, memberHeaders.portalColumnHeaders)" 
+                                   ng-class="{active: active === company}">{{company.compName}}</a></li>
                         </ul>
                     </li>
-                </ul>
-                
+                </ul>             
             </div>
-            
-            
-
-            <!--
-            <div class="col-xs-12 col-md-6">
-                <div>
-                    <ul class="nav nav-tabs navbar-right" role="tablist">
-                        <li role="presentation">
-                            <a class="dropdown-toggle" href="" 
-                               ng-click="showInContainer(mToolsOutput.portalOrderedArray, memberHeaders.portalColumnHeaders)">
-                                Portal CSV
-                            </a>
-                        </li>
-                        <li role="presentation">
-                            <a class="dropdown-toggle" href="" ng-click="showInContainer(mToolsOutput.projectOrderedArray, memberHeaders.projectColumnHeaders)">
-                                Project CSV
-                            </a>
-                        </li>
-
-                        <li role="presentation" class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                                Separate Companies <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li ng-repeat="company in mToolsInput.compObjects"><a href=""  ng-click="showInContainer(company.userArray, memberHeaders.portalColumnHeaders)">{{company.compName}}</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            -->
-            
-            <!--
-            <div class="col-xs-12 col-md-12 panel-body ">
-                <div class="btn-group">
-
-                    <button type="button" class="btn btn-default btn-sm" ng-repeat="company in mToolsInput.compObjects" ng-click="saveCompanyCSV(company)">
-                        {{company.compName}} Portal CSV
-                    </button>
-
-                </div>
-            </div>
-            -->
-        </div>
+        </div> <!--/. member-results-header  -->
         
-		<div ng-class="{jumbotron: !memberResultsVisibility}" ng-show="editorVisibility">
-            
-            
-            
-            
+        
+		<div id="main" ng-class="{jumbotron: !memberResultsVisibility}" ng-show="editorVisibility">
+
             <div ng-hide="memberResultsVisibility">
                 <h1>Paste CSV Here</h1>
                 <p>
@@ -95,9 +51,6 @@
 						<textarea name="" id="csvContainer"></textarea>
 					</div>
 				</form>
-				<!--
-				<textarea name="" rows="5">{{csvOutput}}</textarea>
-                -->
 			</p>
         
 			<div ng-hide="memberResultsVisibility">
@@ -107,38 +60,51 @@
 			</div>
             
             <div ng-show="memberResultsVisibility">
-                <div class="btn-group">
-                    <button id="savePortalCSV" type="button" class="btn btn-primary" ng-click="savePortalCSV()">
-                                <span class="glyphicon glyphicon-save"></span>  Portal CSV <small>(All Companies)</small>
-                    </button>
-
-                    
-
-                    <button id="saveProjectCSV" type="button" class="btn btn-primary" ng-click="saveProjectCSV()">
-                                <span class="glyphicon glyphicon-save"></span>  Project CSV 
-                    </button>
-                    
+                <p>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-save"></span> Individual Companies <span class="caret"></span> 
+                        <button type="button" class="btn btn-default btn-sm" ng-repeat="company in mToolsInput.compObjects" ng-click="saveCompanyCSV(company)">
+                            {{company.compName}} Portal CSV
                         </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li ng-repeat="company in mToolsInput.compObjects"><a href=""  ng-click="saveCompanyCSV(company)">{{company.compName}}</a></li>
-                        </ul>
                     </div>
+                </p>
+                <p>
+                    <div class="btn-group">
 
-                    <button type="button" class="btn btn-danger" ng-click="reset()">
-                        <span class="glyphicon glyphicon-refresh"></span>
-                    </button>
-                </div>
+                        <button id="savePortalCSV" type="button" class="btn btn-primary btn-lg" ng-click="savePortalCSV()">
+                                    <span class="glyphicon glyphicon-save"></span>  Portal CSV <small>(All Companies)</small>
+                        </button>
+
+
+                        <button id="saveProjectCSV" type="button" class="btn btn-primary btn-lg" ng-click="saveProjectCSV()">
+                                    <span class="glyphicon glyphicon-save"></span>  Project CSV 
+                        </button>
+
+                        <!--
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-save"></span> Individual Companies <span class="caret"></span> 
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="nav-justified" ng-repeat="company in mToolsInput.compObjects"><a href=""  ng-click="saveCompanyCSV(company)">{{company.compName}}</a></li>
+                            </ul>
+                        </div>
+                        -->
+
+                        <button type="button" class="btn btn-danger btn-lg" ng-click="reset()">
+                            <span class="glyphicon glyphicon-refresh"></span>
+                        </button>
+
+                    </div>
+                </p>
+                
             </div>
     
-    
-		</div>
-    
+		</div> <!--/. main  -->
     
     
-        <div class="panel" ng-show="transformMappingVisibility">
+    
+        <div id="transform-mapping" class="panel" ng-show="transformMappingVisibility">
+            
             <div class="panel-body">
                 <div class="page-header">
                     <h2>Transform Mapping <small>Map your CSV columns against the standard Keystone Portal CSV </small></h2>
@@ -175,9 +141,6 @@
                         <input type="text" class="form-control" placeholder="ABN" ng-model="mToolsInput.companyABNInput[$index]">
                     </div>
 
-
-
-
                     <div class="page-header">
                         <h4>Columns From Uploaded CSV</h4>
                     </div>
@@ -201,73 +164,8 @@
                     
                 </div><!--/.col-xs-12 col-md-6 -->
             </div><!--/. panel-body-->
-        </div><!--/. panel  -->
-
-
-        
-        <br>
-        <div>
-            <table class="table table-striped table-condensed" ng-show="active === mToolsOutput.portalOrderedArray">
-                <caption class="text-left"><h4>Portal<h4></caption>
-                <tr>
-                    <th ng-repeat="jdataH in memberHeaders.portalColumnHeaders track by $index">
-                        {{jdataH}}
-                    </th>
-                </tr>
-                <tr ng-repeat="(jkey, jdata) in mToolsOutput.portalOrderedArray track by $index">
-                        <td ng-repeat="(key, value) in mToolsOutput.portalOrderedArray[jkey] track by $index">
-
-                            <span editable-text="mToolsOutput.portalOrderedArray[jkey][key]">{{value}}</span>
-
-                            <input type="text" editable-text="mToolsOutput.portalOrderedArray[jkey][key]" ng-model="value" ng-if="!value" class="editable-text">
-                    
-                        </td>
-                        <td><button type="button"  class="btn btn-danger pull-right" ng-click="deleteUser(jkey)">Del</button></td>
-                </tr>
-            </table>
-            <table class="table table-striped table-condensed" ng-show="active === mToolsOutput.projectOrderedArray">
-                <caption class="text-left"><h4>Project<h4></caption>
-                <tr>
-                    <th ng-repeat="jdataH in memberHeaders.projectColumnHeaders track by $index">
-                        {{jdataH}}
-                    </th>
-                </tr>
-                <tr ng-repeat="(jkey, jdata) in mToolsOutput.projectOrderedArray track by $index">
-                        <td ng-repeat="(key, value) in mToolsOutput.projectOrderedArray[jkey] track by $index">
-
-                            <span editable-text="mToolsOutput.projectOrderedArray[jkey][key]">{{value}}</span>
-
-                            <input type="text" editable-text="mToolsOutput.projectOrderedArray[jkey][key]" ng-model="value" ng-if="!value" class="editable-text">
-                    
-                        </td>
-                        <td><button type="button"  class="btn btn-danger pull-right" ng-click="deleteUser(jkey)">Del</button></td>
-                </tr>
-            </table>
-        </div>
-        <div ng-repeat="company in mToolsInput.compObjects">
-            <table class="table table-striped table-condensed" ng-show="active === company">
-                <caption class="text-left"><h4>{{company.compName}}<h4></caption>
-                <tr>
-                    <th ng-repeat="jdataH in memberHeaders.portalColumnHeaders track by $index">
-                        {{jdataH}}
-                    </th>
-                </tr>
-                <tr ng-repeat="(jkey, jdata) in company.userArray track by $index">
-                        <td ng-repeat="(key, value) in company.userArray[jkey] track by $index">
-
-                            <span editable-text="company.userArray[jkey][key]">{{value}}</span>
-
-                            <input type="text" editable-text="company.userArray[jkey][key]" ng-model="value" ng-if="!value" class="editable-text">
-                    
-                        </td>
-                        <td><button type="button"  class="btn btn-danger pull-right" ng-click="deleteUser(jkey)">Del</button></td>
-                </tr>
-            </table>
-        </div>
-
-
-
+        </div><!--/. transform-mapping  -->
 	
-	</div>
+	</div><!--/.col-xs-12 col-md-12 -->
 	
-</div>
+</div><!--/.default -->

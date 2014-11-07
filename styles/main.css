@@ -2,6 +2,16 @@ body {
 	padding-top: 40px;
 }
 
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;    
+}
+
+/*
+.btn-group button.dropdown-toggle:hover > ul.dropdown-menu {
+    display: block;    
+}
+*/
+
 .content {
 	padding: 40px 15px;
 	/*text-align: center;*/

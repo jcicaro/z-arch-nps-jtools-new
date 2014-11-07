@@ -27,11 +27,11 @@
 				<button id="clearAll" type="button" class="btn btn-danger btn-lg" ng-click="clearAll()">
 					Clear
 				</button>
-				<!--
+				
 				<button id="executeButton" type="button" class="btn btn-primary btn-lg" ng-click="executeButton()">
 					Execute
 				</button>
-				-->
+				
 			</p>
 		</div>
 			
@@ -78,7 +78,7 @@
 						
 						<span editable-text="csvRowsArray[jkey][key]">{{value}}</span>
 						
-						<input type="text" editable-text="csvRowsArray[jkey][key]" ng-model="value" ng-if="!value">
+						<input class="editable-text" type="text" editable-text="csvRowsArray[jkey][key]" ng-model="value" ng-if="!value">
 						<!--
 						<input type="text" editable-text="csvRowsArray[$parent.$index][$index]" ng-model="value" ng-if="!value">
 						-->
