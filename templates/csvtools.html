@@ -4,7 +4,7 @@
 		<div class="jumbotron">
 			<h1>Paste CSV Here</h1>
 			<p>
-				Convert spreadsheet into a CSV, open it in a text editor, copy text, and then paste it here.
+				Convert spreadsheet into a CSV, drag-and-drop or copy/paste below.
 			</p>
 			<p>
 				<form id="inputForm" action="">
@@ -12,20 +12,26 @@
 						<textarea name="" id="csvContainer" rows="5"></textarea>
 					</div>
 				</form>
+                
 			</p>
 			<p>
 				<button id="processCSV" type="button" class="btn btn-primary btn-lg" ng-click="processCSV()">
-					Start CSV Processing
+					<span class="glyphicon glyphicon-th-large"></span> Table View
 				</button>
 				
 				<button id="showCurrentCSVInContainer" type="button" class="btn btn-primary btn-lg" ng-click="showCurrentCSVInContainer()">
-					Show Current CSV
+					<span class="glyphicon glyphicon-edit"></span> Editor View
 				</button>
+                
+                <button id="openInMTools" type="button" class="btn btn-primary btn-lg" ng-click="openInMTools()">
+                            <span class="glyphicon glyphicon-user"></span>  Member Tools 
+                </button>
+                
 				<button id="saveCSV" type="button" class="btn btn-success btn-lg" ng-click="saveCSV()">
-					Save
+					<span class="glyphicon glyphicon-save"></span>
 				</button>
 				<button id="clearAll" type="button" class="btn btn-danger btn-lg" ng-click="clearAll()">
-					Clear
+					<span class="glyphicon glyphicon-repeat"></span>
 				</button>
 				
 				<button id="executeButton" type="button" class="btn btn-primary btn-lg" ng-click="executeButton()">
@@ -66,11 +72,15 @@
 		-->
         
 		<br>
-		<table class="table table-striped">
+		<table class="table table-striped table-condensed">
 			
 			<tr>
 				<th ng-repeat="jdataH in csvColumnHeadersArray track by $index">
 					{{jdataH}}
+                    <br>
+                    <button type="button"  class="btn btn-danger" ng-click="deleteColumn($index)">
+                        <span class="glyphicon glyphicon-remove-sign"></span>
+                    </button>
 				</th>
 			</tr>
 			<tr ng-repeat="(jkey, jdata) in csvRowsArray | filter:searchText track by $index">
@@ -83,7 +93,14 @@
 						<input type="text" editable-text="csvRowsArray[$parent.$index][$index]" ng-model="value" ng-if="!value">
 						-->
 					</td>
-					<td><button type="button"  class="btn btn-danger pull-right" ng-click="deleteUser(jkey)">Del</button></td>
+					<td>
+                        <button type="button"  class="btn btn-primary pull-right" ng-click="addRowAfter(jkey)">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                        </button>
+                        <button type="button"  class="btn btn-danger pull-right" ng-click="deleteRow(jkey)">
+                            <span class="glyphicon glyphicon-minus-sign"></span>
+                        </button>
+                    </td>
 			</tr>
 		</table>
 		
@@ -100,5 +117,4 @@
 		</tr>
 	</table>
 	-->
-	
 </div>

@@ -51,11 +51,12 @@
 						<textarea name="" id="csvContainer"></textarea>
 					</div>
 				</form>
+                
 			</p>
         
 			<div ng-hide="memberResultsVisibility">
                 <button id="processMemberCSV" type="button" class="btn btn-primary btn-lg" ng-click="processMemberCSV()">
-					<span class="glyphicon glyphicon-chevron-right"></span>  Member CSV 
+					<span class="glyphicon glyphicon-play"></span>  Start
 				</button>
 			</div>
             
@@ -63,7 +64,7 @@
                 <p>
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-sm" ng-repeat="company in mToolsInput.compObjects" ng-click="saveCompanyCSV(company)">
-                            {{company.compName}} Portal CSV
+                            <span class="glyphicon glyphicon-save"></span> {{company.compName}} Portal
                         </button>
                     </div>
                 </p>
@@ -71,12 +72,16 @@
                     <div class="btn-group">
 
                         <button id="savePortalCSV" type="button" class="btn btn-primary btn-lg" ng-click="savePortalCSV()">
-                                    <span class="glyphicon glyphicon-save"></span>  Portal CSV <small>(All Companies)</small>
+                                    <span class="glyphicon glyphicon-save"></span>  Portal <small>(All Companies)</small>
                         </button>
 
 
                         <button id="saveProjectCSV" type="button" class="btn btn-primary btn-lg" ng-click="saveProjectCSV()">
-                                    <span class="glyphicon glyphicon-save"></span>  Project CSV 
+                                    <span class="glyphicon glyphicon-save"></span>  Project 
+                        </button>
+                        
+                        <button id="openInCSVTools" type="button" class="btn btn-primary btn-lg" ng-click="openInCSVTools()">
+                                    <span class="glyphicon glyphicon-eye-open"></span>  CSV Tools 
                         </button>
 
                         <!--
@@ -91,7 +96,7 @@
                         -->
 
                         <button type="button" class="btn btn-danger btn-lg" ng-click="reset()">
-                            <span class="glyphicon glyphicon-refresh"></span>
+                            <span class="glyphicon glyphicon-repeat"></span>
                         </button>
 
                     </div>
@@ -155,10 +160,10 @@
                    
                     <div class="btn-group pull-right">
                         <button id="generateCSVReadyText" type="button" class="btn btn-primary btn-lg" ng-click="generateCSVReadyText()">
-                            <span class="glyphicon glyphicon-chevron-right"></span> Generate CSV 
+                            <span class="glyphicon glyphicon-play"></span> Generate CSV 
                         </button>
                         <button type="button" class="btn btn-danger btn-lg" ng-click="reset()">
-                            <span class="glyphicon glyphicon-refresh"></span>
+                            <span class="glyphicon glyphicon-repeat"></span>
                         </button>
                     </div>
                     

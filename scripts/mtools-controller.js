@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('mtools-controller', []);
     
-    app.controller('mtoolsCtrl', ['$scope', function($scope) {
+    app.controller('mtoolsCtrl', ['$scope', '$state', '$stateParams', function($scope, $state, $stateParams) {
         
         csvContainer = CodeMirror.fromTextArea(document.getElementById("csvContainer"), {
 			lineNumbers : true,
@@ -21,6 +21,15 @@
 		$scope.tableVisibility = true;
         
         $scope.active;
+        
+        if(typeof $state.$current.locals.globals.$stateParams.detail !== 'undefined') {
+            $scope.editorVisibility = true;
+            $scope.transformMappingVisibility = false;
+            $scope.memberResultsVisibility = false;
+            //$scope.reset();
+            csvContainer.setValue(localStorage.currentText);
+            csvContainer.refresh();
+        }
 		
         $scope.processMemberCSV = function() {
 			$scope.processMemberTools();
@@ -43,8 +52,20 @@
             csvContainer.setValue(text);
             csvContainer.refresh();
             
-            localStorage.currentText = text;
+            //localStorage.currentText = text;
             $scope.active = obj;
+        };
+        
+        $scope.openInCSVTools = function () {
+            localStorage.currentText = csvContainer.getValue();
+            
+            //<a href="#/csvtools/valstored" target="_blank"><small><span class="glyphicon glyphicon-eye-open"></span> Open in CSV Tools</small></a>
+            var a         = document.createElement('a');
+			a.href        = '#/csvtools/valstored';
+			a.target      = '_blank';
+			
+			document.body.appendChild(a);
+			a.click();
         };
 		
 		$scope.reset = function() {

@@ -13,7 +13,7 @@
 				templateUrl: 'templates/jtools.html',
 				controller: 'jtoolsCtrl'
 			})
-			.state('membertools', {
+			.state('membertools', { //UNUSED
 				url: '/membertools',
 				templateUrl: 'templates/membertools.html',
 				controller: 'memberToolsCtrl'
@@ -23,7 +23,11 @@
 				templateUrl: 'templates/csvtools.html',
 				controller: 'csvToolsCtrl'
 			})
-			
+			.state('csvtools.detail', {
+				url: '/:detail',
+				templateUrl: 'templates/csvtools.html',
+                controller: 'csvToolsCtrl'
+			})
 			.state('matrixtools', {
 				url: '/matrixtools',
 				templateUrl: 'templates/matrixtools.html',
@@ -34,7 +38,12 @@
 				templateUrl: 'templates/mtools.html',
 				controller: 'mtoolsCtrl'
 			})
-			.state('codeme', {
+            .state('mtools.detail', {
+				url: '/:detail',
+				templateUrl: 'templates/mtools.html',
+				controller: 'mtoolsCtrl'
+			})
+			.state('codeme', { //UNUSED
 				url: '/codeme',
 				templateUrl: 'templates/codeme.html'
 				/*controller: 'codemeCtrl'*/

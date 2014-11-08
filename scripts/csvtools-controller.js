@@ -1,7 +1,7 @@
 (function() {
 	var app = angular.module('csvtools-controller', []);
 	
-	app.controller('csvToolsCtrl', ['$scope', '$filter', function($scope, $filter) {
+	app.controller('csvToolsCtrl', ['$scope', '$filter', '$state', '$stateParams', function($scope, $filter, $state, $stateParams) {
 		var csvContainer = CodeMirror.fromTextArea(document.getElementById("csvContainer"), {
 			lineNumbers : true,
 			mode : "text/javascript",
@@ -19,23 +19,46 @@
 		$scope.csvConvertedArray = []; //each i is a string of comma delimited rows
 		$scope.csvRowsArray = []; //each i is an array of comma delimited rows
 		$scope.csvColumnHeadersArray = []; //each i is a string of column header
+        
+        if(typeof $state.$current.locals.globals.$stateParams.detail !== 'undefined') {
+            csvContainer.setValue(localStorage.currentText);
+            csvContainer.refresh();
+        }
+        
 
 		$scope.executeButton = function() {
 			//var str = CSVTOOLSFUNCTIONS.arraysToCSVReadyString($scope.csvColumnHeadersArray, $scope.csvRowsArray);
 			//CSVTOOLSFUNCTIONS.saveCSV(str);
-			alert(localStorage.currentText);
+			//alert(localStorage.currentText);
+            alert(typeof $state.$current.locals.globals.$stateParams.detail);
 		};
+        
+        $scope.openInMTools = function () {
+            localStorage.currentText = csvContainer.getValue();
+
+            var a         = document.createElement('a');
+			a.href        = '#/mtools/valstored';
+			a.target      = '_blank';
+			
+			document.body.appendChild(a);
+			a.click();
+        };
+        
+        $scope.deleteColumn = function (column) {
+            //alert(column);
+            for (var i=0, len=$scope.csvRowsArray.length; i<len; i++) {
+                $scope.csvRowsArray[i].splice(column,1);
+            }
+            
+            $scope.csvColumnHeadersArray.splice(column,1);
+        };
 		
-		// mark user as deleted
-	    $scope.deleteUser = function(row) {
-	    	/*
-	        var filtered = $filter('filter')($scope.csvRowsArray)[row];
-	        if (filtered.length) {
-	            filtered[0].isDeleted = true;
-	            
-	        }
-	        */
+	    $scope.deleteRow = function(row) {
 	       $scope.csvRowsArray.splice(row,1);
+	    };
+        
+        $scope.addRowAfter = function(row) {
+            $scope.csvRowsArray.splice(row+1,0,$scope.csvColumnHeadersArray);    
 	    };
 		
 		$scope.processCSV = function() {
