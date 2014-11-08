@@ -75,11 +75,21 @@
 		<table class="table table-striped table-condensed">
 			
 			<tr>
-				<th ng-repeat="jdataH in csvColumnHeadersArray track by $index">
-					{{jdataH}}
+				<th ng-repeat="(keyH, jdataH) in csvColumnHeadersArray track by $index">
+					<span editable-text="csvColumnHeadersArray[keyH]">{{jdataH}}</span>
                     <br>
-                    <button type="button"  class="btn btn-danger" ng-click="deleteColumn($index)">
-                        <span class="glyphicon glyphicon-remove-sign"></span>
+                    <input class="editable-text" type="text" editable-text="csvColumnHeadersArray[keyH]" ng-model="jdataH" ng-if="!jdataH">
+                    <button type="button"  class="btn btn-primary btn-xs" ng-click="addColumnAfter($index)">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                    </button>
+                    <button type="button"  class="btn btn-danger btn-xs" ng-click="deleteColumn($index)">
+                        <span class="glyphicon glyphicon-minus-sign"></span>
+                    </button>
+                    <button type="button"  class="btn btn-primary btn-xs" ng-click="moveLeft($index)">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                    </button>
+                    <button type="button"  class="btn btn-primary btn-xs" ng-click="moveRight($index)">
+                        <span class="glyphicon glyphicon-circle-arrow-right"></span>
                     </button>
 				</th>
 			</tr>
@@ -94,11 +104,18 @@
 						-->
 					</td>
 					<td>
-                        <button type="button"  class="btn btn-primary pull-right" ng-click="addRowAfter(jkey)">
+                        <button type="button"  class="btn btn-primary btn-xs pull-right" ng-click="addRowAfter(jkey)">
                             <span class="glyphicon glyphicon-plus-sign"></span>
                         </button>
-                        <button type="button"  class="btn btn-danger pull-right" ng-click="deleteRow(jkey)">
+                        <button type="button"  class="btn btn-danger btn-xs pull-right" ng-click="deleteRow(jkey)">
                             <span class="glyphicon glyphicon-minus-sign"></span>
+                        </button>
+                        
+                        <button type="button"  class="btn btn-primary btn-xs pull-right" ng-click="moveUp(jkey)">
+                            <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                        </button>
+                        <button type="button"  class="btn btn-primary btn-xs pull-right" ng-click="moveDown(jkey)">
+                            <span class="glyphicon glyphicon-circle-arrow-down"></span>
                         </button>
                     </td>
 			</tr>

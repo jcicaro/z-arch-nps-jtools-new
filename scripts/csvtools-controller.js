@@ -44,6 +44,52 @@
 			a.click();
         };
         
+        $scope.moveLeft = function (column) {
+            
+            if(column !== 0) {
+                
+                for (var i=0, len=$scope.csvRowsArray.length; i<len; i++) {
+                    var colStr = $scope.csvRowsArray[i][column];
+                    //$scope.csvRowsArray[i].splice(column,1);
+                    $scope.csvRowsArray[i].splice(column-1,0,colStr);
+                }
+                var colHeaderStr = $scope.csvColumnHeadersArray[column];
+                $scope.csvColumnHeadersArray.splice(column-1,0,colHeaderStr);
+                
+            }
+        };
+        
+        $scope.moveRight = function (column) {
+            
+            if(column !== $scope.csvRowsArray.length-1) {
+                
+                for (var i=0, len=$scope.csvRowsArray.length; i<len; i++) {
+                    var colStr = $scope.csvRowsArray[i][column];
+                    $scope.csvRowsArray[i].splice(column,1);
+                    $scope.csvRowsArray[i].splice(column+1,0,colStr);
+                }
+                var colHeaderStr = $scope.csvColumnHeadersArray[column];
+                $scope.csvColumnHeadersArray.splice(column+1,0,colHeaderStr);
+                
+            }
+        };
+        
+        $scope.moveDown = function (row) {
+            if(row !== $scope.csvRowsArray.length-1) {
+                var rowStr = $scope.csvRowsArray[row];
+                $scope.csvRowsArray.splice(row,1);
+                $scope.csvRowsArray.splice(row+1,0,rowStr); 
+            }
+        };
+        
+        $scope.moveUp = function (row) {
+            if(row !== 0) {
+                var rowStr = $scope.csvRowsArray[row];
+                $scope.csvRowsArray.splice(row,1);
+                $scope.csvRowsArray.splice(row-1,0,rowStr);  
+            }
+        };
+        
         $scope.deleteColumn = function (column) {
             //alert(column);
             for (var i=0, len=$scope.csvRowsArray.length; i<len; i++) {
@@ -51,6 +97,15 @@
             }
             
             $scope.csvColumnHeadersArray.splice(column,1);
+        };
+        
+        $scope.addColumnAfter = function (column) {
+            //alert(column);
+            for (var i=0, len=$scope.csvRowsArray.length; i<len; i++) {
+                $scope.csvRowsArray[i].splice(column+1,0,$scope.csvRowsArray[i][column]);
+            }
+            
+            $scope.csvColumnHeadersArray.splice(column+1,0,$scope.csvColumnHeadersArray[column]);
         };
 		
 	    $scope.deleteRow = function(row) {
