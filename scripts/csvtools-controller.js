@@ -20,6 +20,8 @@
 		$scope.csvRowsArray = []; //each i is an array of comma delimited rows
 		$scope.csvColumnHeadersArray = []; //each i is a string of column header
         
+        $scope.tableVisibility = false;
+        
         if(typeof $state.$current.locals.globals.$stateParams.detail !== 'undefined') {
             csvContainer.setValue(localStorage.currentText);
             csvContainer.refresh();
@@ -119,6 +121,7 @@
 	    };
 		
 		$scope.processCSV = function() {
+            $scope.tableVisibility = true;
 			$scope.csvRowsArray = []; //this is to clear the table when the button is clicked
 			$scope.parseColumnHeaders();
 			$scope.rowsToObjects();
@@ -171,8 +174,9 @@
 		};
 		
 		$scope.showCurrentCSVInContainer = function() {
+            $scope.tableVisibility = false;
 			$scope.csvOutput = CSVTOOLSFUNCTIONS.arraysToCSVText($scope.csvColumnHeadersArray, $scope.csvRowsArray);
-			csvContainer.setValue($scope.csvOutput);
+			csvContainer.setValue($scope.csvOutput.trim());
 			csvContainer.refresh();
 		};
 	}]);

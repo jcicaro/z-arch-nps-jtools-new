@@ -1,15 +1,15 @@
 (function() {
-	var app = angular.module('app', ['ui.router', 'controller', 'csvtools-controller', 'matrixtools-controller', 'mtools-controller', 'factory', 'directive', 'xeditable']);
+	var app = angular.module('app', ['ui.router', 'controller', 'csvtools-controller', 'matrixtools-controller', 'mtools-controller', 'factory', 'directive', 'xeditable', 'angular-sortable-view']);
 
 	/*
 	 * Route
 	 */
 	app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
-		$urlRouterProvider.otherwise('/');
+		$urlRouterProvider.otherwise('/mtools');
 		
 		$stateProvider
 			.state('jtools', {
-				url: '/',
+				url: '/jtools',
 				templateUrl: 'templates/jtools.html',
 				controller: 'jtoolsCtrl'
 			})

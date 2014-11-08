@@ -22,11 +22,10 @@
         
         $scope.active;
         
+        $scope.resVisibilityEditor = false;
+        
         if(typeof $state.$current.locals.globals.$stateParams.detail !== 'undefined') {
-            $scope.editorVisibility = true;
-            $scope.transformMappingVisibility = false;
-            $scope.memberResultsVisibility = false;
-            //$scope.reset();
+            clearAllData();
             csvContainer.setValue(localStorage.currentText);
             csvContainer.refresh();
         }
@@ -48,8 +47,9 @@
 		};
         
         $scope.showInContainer = function (obj, array, header) {
+            $scope.resVisibilityEditor = true;
             var text = TABLEHELPERS.arraysToCSVText(array, header);
-            csvContainer.setValue(text);
+            csvContainer.setValue(text.trim());
             csvContainer.refresh();
             
             //localStorage.currentText = text;
@@ -67,9 +67,14 @@
 			document.body.appendChild(a);
 			a.click();
         };
-		
-		$scope.reset = function() {
+        
+        $scope.reset = function () {
             csvContainer.setValue("");
+            clearAllData();
+        };
+		
+		function clearAllData() {
+            
 			$scope.editorVisibility = true;
 			$scope.transformMappingVisibility = false;
 			$scope.memberResultsVisibility = false;
@@ -101,10 +106,7 @@
 				csvProjectHeaderInput: ["","","","","","","","","","","","","","","",""]
 			};
 			
-			$scope.timezone = {
-				timezones: MTOOLSFUNCTIONS.timezones,
-				timezoneInput: MTOOLSFUNCTIONS.timezones[47] //default
-			};
+			
 		
 		};
 		
@@ -350,7 +352,7 @@
 				
 				for(var i=1, len=inp.originalInputLinesArray.length;i<len;i++) {
 					var arr = inp.originalInputLinesArray[i].split(",");
-					if(inp.companyColumnIndex) {
+					if(arr[inp.companyColumnIndex]) {
 						var comp = arr[inp.companyColumnIndex].toUpperCase();
 						arrCache.push(comp);
 					}
