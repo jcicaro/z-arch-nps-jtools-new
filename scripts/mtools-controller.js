@@ -1,7 +1,7 @@
 (function() {
-    var app = angular.module('table-controller', []);
+    var app = angular.module('mtools-controller', []);
     
-    app.controller('tableCtrl', ['$scope', function($scope) {
+    app.controller('mtoolsCtrl', ['$scope', function($scope) {
         
         csvContainer = CodeMirror.fromTextArea(document.getElementById("csvContainer"), {
 			lineNumbers : true,

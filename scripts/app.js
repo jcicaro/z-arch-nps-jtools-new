@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('app', ['ui.router', 'controller', 'membertools-controller', 'csvtools-controller', 'matrixtools-controller', 'table-controller', 'factory', 'directive', 'xeditable']);
+	var app = angular.module('app', ['ui.router', 'controller', 'csvtools-controller', 'matrixtools-controller', 'mtools-controller', 'factory', 'directive', 'xeditable']);
 
 	/*
 	 * Route
@@ -29,10 +29,10 @@
 				templateUrl: 'templates/matrixtools.html',
 				controller: 'matrixToolsCtrl'
 			})
-			.state('tables', {
-				url: '/tables',
-				templateUrl: 'templates/tables.html',
-				controller: 'tableCtrl'
+			.state('mtools', {
+				url: '/mtools',
+				templateUrl: 'templates/mtools.html',
+				controller: 'mtoolsCtrl'
 			})
 			.state('codeme', {
 				url: '/codeme',
