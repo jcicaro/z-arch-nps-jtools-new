@@ -56,6 +56,7 @@
                 var colHeaderStr = $scope.csvColumnHeadersArray[column];
                 $scope.csvColumnHeadersArray.splice(column-1,0,colHeaderStr);
                 
+                $scope.deleteColumn(column+1);
             }
         };
         
@@ -65,12 +66,13 @@
                 
                 for (var i=0, len=$scope.csvRowsArray.length; i<len; i++) {
                     var colStr = $scope.csvRowsArray[i][column];
-                    $scope.csvRowsArray[i].splice(column,1);
-                    $scope.csvRowsArray[i].splice(column+1,0,colStr);
+                    //$scope.csvRowsArray[i].splice(column,1);
+                    $scope.csvRowsArray[i].splice(column+2,0,colStr);
                 }
                 var colHeaderStr = $scope.csvColumnHeadersArray[column];
-                $scope.csvColumnHeadersArray.splice(column+1,0,colHeaderStr);
+                $scope.csvColumnHeadersArray.splice(column+2,0,colHeaderStr);
                 
+                $scope.deleteColumn(column);
             }
         };
         
