@@ -78,6 +78,7 @@
 			$scope.editorVisibility = true;
 			$scope.transformMappingVisibility = false;
 			$scope.memberResultsVisibility = false;
+            $scope.resVisibilityEditor = false;
 			
 			$scope.mToolsInput = {
 				originalInputText: "", 

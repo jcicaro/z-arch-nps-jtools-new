@@ -13,11 +13,12 @@
 				templateUrl: 'templates/jtools.html',
 				controller: 'jtoolsCtrl'
 			})
+            /*
 			.state('membertools', { //UNUSED
 				url: '/membertools',
 				templateUrl: 'templates/membertools.html',
 				controller: 'memberToolsCtrl'
-			})
+			})*/
 			.state('csvtools', {
 				url: '/csvtools',
 				templateUrl: 'templates/csvtools.html',
