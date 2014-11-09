@@ -101,7 +101,7 @@
                     <input class="editable-text" type="text" editable-text="csvColumnHeadersArray[keyH]" ng-model="jdataH" ng-if="!jdataH">
 				</th>
 			</tr>
-			<tr ng-repeat="(jkey, jdata) in csvRowsArray | filter:searchText track by $index" sv-element="opts" class="well">
+			<tr ng-repeat="(jkey, jdata) in csvRowsArray track by $index" sv-element="opts" class="well">
 					<td ng-repeat="(key, value) in csvRowsArray[jkey] track by $index">
 						
 						<span editable-text="csvRowsArray[jkey][key]">{{value}}</span>
