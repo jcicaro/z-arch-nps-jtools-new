@@ -13,13 +13,17 @@
                             <textarea name="" id="csvContainer" rows="5"></textarea>
                         </div>
                     </form>
-
+                    <button id="addSampleData" type="button" class="btn btn-default btn-sm" ng-click="addSampleData()" ng-hide="tableVisibility">
+                        <span class="glyphicon glyphicon-plus"></span> Add Sample Data
+                    </button>
                 </p>
             </div>
 			<p>
 				<button id="processCSV" type="button" class="btn btn-success btn-lg" ng-click="processCSV()">
 					<span class="glyphicon glyphicon-th-large"></span> Load CSV
 				</button>
+                
+                
 				
 				<button id="showCurrentCSVInContainer" type="button" class="btn btn-primary btn-lg" ng-click="showCurrentCSVInContainer()" ng-show="tableVisibility">
 					<span class="glyphicon glyphicon-edit"></span> Editor View

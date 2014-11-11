@@ -138,6 +138,8 @@
 			$scope.csvConvertedArray = []; 
 			$scope.csvRowsArray = []; 
 			$scope.csvColumnHeadersArray = []; 
+            
+            $scope.tableVisibility = false;
 		};
 		
 		//Helper: processCSV - sets $scope.csvConvertedArray and $scope.csvColumnHeadersArray
@@ -179,5 +181,17 @@
 			csvContainer.setValue($scope.csvOutput.trim());
 			csvContainer.refresh();
 		};
+        
+        
+        $scope.addSampleData = function () {
+            var sample = "First name,Last name,Position,Company,Phone Number,Fax,Mobile Phone,Email,Existing account?,Current User Name,Training Required?\n" +
+"Russell,Westbrook,Point Guard,Oklahoma Thunder,(07) 3002 1234,(07) 3002 9789,,rwestbrook@gmail.com,y,russell.westbrook.oth,y\n" +
+"Kobe,Bryant,Shooting Guard,LA Lakers,(07) 3002 7852,(07) 3002 9789,0421 526 635,kobe.bryant@live.com,y,kobe.bryant.lal,n\n" +
+"Kevin,Durant,Forward,Oklahoma Thunder,02 9632 2547,,0456 963 258,kdurant@gmail.com,y,kevin.durant.oth,n\n" +
+"Charles,Barkley,Forward,LA Lakers,0415 604 215,07 5236 9658,07 4125 8563,charles.barkley@live.com,n,,y\n" +
+"Martina,Hingis,Tennis star,Tennis International,,07 5236 5214,07 8525 9636,mhingis@tennis.com,n,,y";
+            csvContainer.setValue(sample);
+            csvContainer.refresh();
+        };
 	}]);
 })();
